@@ -3,3 +3,5 @@
 ################################################################################
 
 /CoreExamApi/.vs
+/CoreExamApi/CoreExamApi/bin/Debug/netcoreapp2.1
+/CoreExamApi/CoreExamApi/obj
