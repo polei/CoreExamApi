@@ -17,34 +17,40 @@ namespace CoreExamApi
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args)
-                .MigrateDbContext<ExamContext>((context, services) =>
+            //CreateWebHostBuilder(args)
+            //    .MigrateDbContext<ExamContext>((context, services) =>
+            //    {
+            //        var logger = services.GetService<ILogger<ExamContextSeed>>();
+
+            //        new ExamContextSeed()
+            //            .SeedAsync(context, logger)
+            //            .Wait();
+
+            //    }).Run();
+            var host = CreateWebHostBuilder(args);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
                 {
-                    var logger = services.GetService<ILogger<ExamContextSeed>>();
+                    var context = services.GetRequiredService<ExamContext>();
+                    //ExamContextSeed.SeedAsync(context);
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
 
-                    new ExamContextSeed()
-                        .SeedAsync(context, logger)
-                        .Wait();
+            host.Run();
 
-                }).Run();
         }
 
         public static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseContentRoot(Directory.GetCurrentDirectory())
-            .ConfigureAppConfiguration((hostingContext, config) =>
-            {
-                var env = hostingContext.HostingEnvironment;
-                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                      .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
-                config.AddEnvironmentVariables();
-            })
-            .ConfigureLogging((hostingContext, logging) =>
-            {
-                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddConsole();
-                logging.AddDebug();
-            })
             .UseStartup<Startup>().Build();
     }
 }

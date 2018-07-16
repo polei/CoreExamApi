@@ -4,7 +4,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using CoreExamApi.Infrastructure;
+using CoreExamApi.Infrastructure.AutofacModules;
+using CoreExamApi.Infrastructure.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,27 +34,32 @@ namespace CoreExamApi
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // 定义应用所使用的服务
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+            }).AddControllersAsServices().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             ConfigureAuthService(services);
-            
-            services.AddDbContext<ExamContext>(options =>
-            {
-                options.UseSqlServer(Configuration["ConnectionString"],
-                                     sqlServerOptionsAction: sqlOptions =>
-                                     {
-                                         sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                                         //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
-                                         sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                                     });
 
-                // Changing default behavior when client evaluation occurs to throw. 
-                // Default in EF Core would be to log a warning when client evaluation is performed.
-                options.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
-                //Check Client vs. Server evaluation: https://docs.microsoft.com/en-us/ef/core/querying/client-eval
-            });
+            //services.AddDbContext<ExamContext>(options =>
+            //{
+            //    options.UseSqlServer(Configuration["ConnectionString"],
+            //                         sqlServerOptionsAction: sqlOptions =>
+            //                         {
+            //                             sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+            //                             //Configuring Connection Resiliency: https://docs.microsoft.com/en-us/ef/core/miscellaneous/connection-resiliency 
+            //                             sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+            //                         });
+
+            //    // Changing default behavior when client evaluation occurs to throw. 
+            //    // Default in EF Core would be to log a warning when client evaluation is performed.
+            //    options.ConfigureWarnings(warnings => warnings.Throw(RelationalEventId.QueryClientEvaluationWarning));
+            //    //Check Client vs. Server evaluation: https://docs.microsoft.com/en-us/ef/core/querying/client-eval
+            //});
+            services.AddDbContext<ExamContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddCors(options =>
             {
@@ -60,6 +69,13 @@ namespace CoreExamApi
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+
+            //configure autofac
+            var container = new ContainerBuilder();
+            container.Populate(services);
+
+            container.RegisterModule(new ApplicationModule());
+            return new AutofacServiceProvider(container.Build());
         }
 
 

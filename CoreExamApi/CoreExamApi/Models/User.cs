@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace CoreExamApi.Models
 {
     [Table("User")]
-    [Serializable]
     public class User
     {
         [Display(Name = "主键ID")]
