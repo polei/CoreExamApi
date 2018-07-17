@@ -5,12 +5,14 @@ using System.Net;
 using System.Threading.Tasks;
 using CoreExamApi.Infrastructure;
 using CoreExamApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CoreExamApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -20,6 +22,7 @@ namespace CoreExamApi.Controllers
         {
             _examContext= context ?? throw new ArgumentNullException(nameof(context));
         }
+        
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(List<User>), (int)HttpStatusCode.OK)]

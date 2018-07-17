@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CoreExamApi
 {
@@ -92,9 +94,19 @@ namespace CoreExamApi
 
             }).AddJwtBearer(options =>
             {
-                options.Authority = Configuration.GetValue<string>("IdentityUrl");
+                //options.Authority = Configuration.GetValue<string>("IdentityUrl");
                 options.Audience = "examing";
-                options.RequireHttpsMetadata = false;
+                //options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,//是否验证Issuer
+                    ValidateAudience = true,//是否验证Audience
+                    ValidateLifetime = true,//是否验证失效时间
+                    ValidateIssuerSigningKey = true,//是否验证SecurityKey
+                    ValidAudience = "examing",//Audience
+                    ValidIssuer = "examing",//Issuer，这两项和前面签发jwt的设置一致
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))//拿到SecurityKey
+                };
             });
         }
 
