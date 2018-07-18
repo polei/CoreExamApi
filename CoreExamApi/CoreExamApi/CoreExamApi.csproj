@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="Infrastructure\Hubs\" />
+    <Folder Include="wwwroot\lib\signalr\" />
   </ItemGroup>
 
   <ItemGroup>

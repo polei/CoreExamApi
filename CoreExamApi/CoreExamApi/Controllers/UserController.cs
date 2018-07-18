@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using CoreExamApi.Infrastructure;
+using CoreExamApi.Infrastructure.Services;
 using CoreExamApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,9 +19,11 @@ namespace CoreExamApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly ExamContext _examContext;
-        public UserController(ExamContext context)
+        private readonly IIdentityService _identityService;
+        public UserController(ExamContext context, IIdentityService identityService)
         {
             _examContext= context ?? throw new ArgumentNullException(nameof(context));
+            _identityService = identityService;
         }
         
         [HttpGet]
@@ -28,6 +31,7 @@ namespace CoreExamApi.Controllers
         [ProducesResponseType(typeof(List<User>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetUsersList()
         {
+            var userId = _identityService.GetUserIdentity();
             var list = await _examContext.Users.ToListAsync();
             return Ok(list);
         }

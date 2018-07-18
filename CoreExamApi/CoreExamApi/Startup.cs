@@ -10,9 +10,11 @@ using Autofac.Extensions.DependencyInjection;
 using CoreExamApi.Infrastructure;
 using CoreExamApi.Infrastructure.AutofacModules;
 using CoreExamApi.Infrastructure.Filters;
+using CoreExamApi.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -72,6 +74,10 @@ namespace CoreExamApi
                     .AllowCredentials());
             });
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddSignalR();
+
             //configure autofac
             var container = new ContainerBuilder();
             container.Populate(services);
@@ -95,17 +101,39 @@ namespace CoreExamApi
             }).AddJwtBearer(options =>
             {
                 //options.Authority = Configuration.GetValue<string>("IdentityUrl");
-                options.Audience = "examing";
+                //options.Audience = "examing";
                 //options.RequireHttpsMetadata = false;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,//是否验证Issuer
-                    ValidateAudience = true,//是否验证Audience
+                    ValidateIssuer = false,//是否验证Issuer
+                    ValidateAudience = false,//是否验证Audience
                     ValidateLifetime = true,//是否验证失效时间
                     ValidateIssuerSigningKey = true,//是否验证SecurityKey
-                    ValidAudience = "examing",//Audience
-                    ValidIssuer = "examing",//Issuer，这两项和前面签发jwt的设置一致
+                    //ValidAudience = "examing",//Audience
+                    //ValidIssuer = "examing",//Issuer，这两项和前面签发jwt的设置一致
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["SecurityKey"]))//拿到SecurityKey
+                };
+
+                // We have to hook the OnMessageReceived event in order to
+                // allow the JWT authentication handler to read the access
+                // token from the query string when a WebSocket or 
+                // Server-Sent Events request comes in.
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/hubs/chat")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
                 };
             });
         }
