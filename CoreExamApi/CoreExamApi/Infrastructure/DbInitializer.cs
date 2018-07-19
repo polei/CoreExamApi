@@ -26,14 +26,8 @@ namespace CoreExamApi.Infrastructure
             {
                 UserName = "admin",
                 TrueName = "admin",
-                Password = "7C4A8D09CA3762AF61E59520943DC26494F8941B",
-                Sex = 1,
                 CompanyName = "杭州品茗",
-                Province = 0,
-                City = 1,
-                Address = "杭州西斗门路3天堂软件园",
                 CreateDate = DateTime.Now,
-                Professional = 1
             };
         }
     }

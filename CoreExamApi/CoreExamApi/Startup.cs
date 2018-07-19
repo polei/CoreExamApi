@@ -24,6 +24,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace CoreExamApi
 {
@@ -45,6 +46,8 @@ namespace CoreExamApi
                 options.Filters.Add(typeof(HttpGlobalExceptionFilter));
             }).AddControllersAsServices().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.Configure<ExamingSettings>(Configuration);
+
             ConfigureAuthService(services);
 
             //services.AddDbContext<ExamContext>(options =>
@@ -64,6 +67,38 @@ namespace CoreExamApi
             //});
             services.AddDbContext<ExamContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "浙江第二届考试系统预赛",
+                    Version = "v1",
+                    Description = "浙江第二届考试系统预赛 http Api",
+                    TermsOfService = "None",
+                    Contact = new Contact
+                    {
+                        Name = "sunfan",
+                        Email = "....",
+                        Url = "....."
+                    },
+                });
+
+                options.AddSecurityDefinition("oauth2", new OAuth2Scheme
+                {
+                    Type = "oauth2",
+                    Flow = "implicit",
+                    AuthorizationUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize",
+                    TokenUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token",
+                    Scopes = new Dictionary<string, string>()
+                    {
+                        { "Examing", "Examing API" }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
+            });
 
             services.AddCors(options =>
             {
@@ -151,9 +186,25 @@ namespace CoreExamApi
                 app.UseHsts();
             }
             app.UseAuthentication();
-
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
+
+
+            app.UseStaticFiles();
+            var pathBase = Configuration["PATH_BASE"];
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                app.UsePathBase(pathBase);
+            }
+            app.UseSwagger()
+               .UseSwaggerUI(c =>
+               {
+                   c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Examing.API V1");
+                   c.OAuthClientId("examingswaggerui");
+                   c.OAuthAppName("Examing Swagger UI");
+               });
         }
     }
 }

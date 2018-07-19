@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreExamApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -21,6 +21,7 @@ namespace CoreExamApi.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             var user=await _examContext.Users.SingleOrDefaultAsync(x=>x.UserName==model.UserName);

@@ -15,9 +15,11 @@ namespace CoreExamApi.Infrastructure
         public ExamContext(DbContextOptions<ExamContext> options) : base(options)
         { }
 
+        public DbSet<BaseExamSetting> BaseExamSettings { get; set; }
         public DbSet<User> Users { get; set; }
-
-        
+        public DbSet<Problem> Problems { get; set; }
+        public DbSet<UserExamScore> UserExamScores { get; set; }
+        public DbSet<UserProblemScore> UserProblemScores { get; set; }
 
         //public class ExamContextDesignFactory : IDesignTimeDbContextFactory<ExamContext>
         //{

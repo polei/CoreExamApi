@@ -7,6 +7,7 @@
   <ItemGroup>
     <Folder Include="Infrastructure\Hubs\" />
     <Folder Include="wwwroot\lib\signalr\" />
+    <Folder Include="wwwroot\swagger\ui\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Polly" Version="6.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 
 </Project>

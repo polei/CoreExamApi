@@ -51,6 +51,7 @@ namespace CoreExamApi
 
         public static IWebHost CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseContentRoot(Directory.GetCurrentDirectory())
             .UseStartup<Startup>().Build();
     }
 }
