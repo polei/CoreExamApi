@@ -17,7 +17,7 @@ namespace CoreExamApi.Infrastructure.Services
 
         public string GetUserIdentity()
         {
-            return _context.HttpContext.User.FindFirst("sub").Value;
+            return _context.HttpContext.User.FindFirst("uid").Value;
         }
     }
 }

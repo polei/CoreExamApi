@@ -12,12 +12,12 @@ namespace CoreExamApi.ViewModel
         /// 手机号码？
         /// </summary>
         [Required(ErrorMessage = "用户名不能为空。")]
-        public string UserName { get; set; }
+        public string userName { get; set; }
 
         /// <summary>
         /// 密码手机号码？
         /// </summary>
         [Required(ErrorMessage = "密码不能为空。")]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 }

@@ -96,6 +96,7 @@ namespace CoreExamApi
                         { "Examing", "Examing API" }
                     }
                 });
+                
 
                 options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
@@ -117,7 +118,7 @@ namespace CoreExamApi
             var container = new ContainerBuilder();
             container.Populate(services);
 
-            container.RegisterModule(new ApplicationModule());
+            //container.RegisterModule(new ApplicationModule());
             return new AutofacServiceProvider(container.Build());
         }
 
@@ -196,7 +197,7 @@ namespace CoreExamApi
 
             if (!string.IsNullOrEmpty(pathBase))
             {
-                app.UsePathBase(pathBase);
+                //app.UsePathBase(pathBase);
             }
             app.UseSwagger()
                .UseSwaggerUI(c =>
@@ -204,6 +205,7 @@ namespace CoreExamApi
                    c.SwaggerEndpoint($"{ (!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty) }/swagger/v1/swagger.json", "Examing.API V1");
                    c.OAuthClientId("examingswaggerui");
                    c.OAuthAppName("Examing Swagger UI");
+                   c.RoutePrefix = string.Empty;
                });
         }
     }
