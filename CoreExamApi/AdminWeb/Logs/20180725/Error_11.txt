@@ -1,0 +1,2 @@
+[11:15:39][Error] 导入问题不能将值 NULL 插入列 'ID'，表 'PMSoft.ExamDb.dbo.Problem'；列不允许有 Null 值。INSERT 失败。
+语句已终止。|[]

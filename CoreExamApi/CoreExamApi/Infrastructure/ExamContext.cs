@@ -16,6 +16,7 @@ namespace CoreExamApi.Infrastructure
         { }
 
         public DbSet<BaseExamSetting> BaseExamSettings { get; set; }
+        public DbSet<ExamProcess> ExamProcesss { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Problem> Problems { get; set; }
         public DbSet<UserExamScore> UserExamScores { get; set; }

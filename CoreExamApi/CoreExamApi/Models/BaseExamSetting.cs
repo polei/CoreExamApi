@@ -32,5 +32,10 @@ namespace CoreExamApi.Models
         /// </summary>
         public int TypeTimeSpan3 { get; set; }
 
+        /// <summary>
+        /// 参与时间
+        /// </summary>
+        public int PartTimeSpan { get; set; }
+
     }
 }

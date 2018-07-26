@@ -10,6 +10,7 @@ using Autofac.Extensions.DependencyInjection;
 using CoreExamApi.Infrastructure;
 using CoreExamApi.Infrastructure.AutofacModules;
 using CoreExamApi.Infrastructure.Filters;
+using CoreExamApi.Infrastructure.Hubs;
 using CoreExamApi.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -53,7 +54,7 @@ namespace CoreExamApi
 
             //services.AddDbContext<ExamContext>(options =>
             //{
-            //    options.UseSqlServer(Configuration["ConnectionString"],
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
             //                         sqlServerOptionsAction: sqlOptions =>
             //                         {
             //                             sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
@@ -89,17 +90,14 @@ namespace CoreExamApi
                 var xmlPath = System.IO.Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
 
-                //options.AddSecurityDefinition("oauth2", new OAuth2Scheme
-                //{
-                //    Type = "oauth2",
-                //    Flow = "implicit",
-                //    AuthorizationUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize",
-                //    TokenUrl = $"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token",
-                //    Scopes = new Dictionary<string, string>()
-                //    {
-                //        { "Examing", "Examing API" }
-                //    }
-                //});
+
+                options.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "请输入带有Bearer的Token",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
+                });
 
                 options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
@@ -121,7 +119,7 @@ namespace CoreExamApi
             var container = new ContainerBuilder();
             container.Populate(services);
 
-            //container.RegisterModule(new ApplicationModule());
+            container.RegisterModule(new ApplicationModule(Configuration.GetConnectionString("DefaultConnection")));
             return new AutofacServiceProvider(container.Build());
         }
 
@@ -194,6 +192,12 @@ namespace CoreExamApi
             app.UseHttpsRedirection();
             app.UseMvc();
 
+            //signal
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationsHub>("/notificationhub", options =>
+                    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransports.All);
+            });
 
             app.UseStaticFiles();
             var pathBase = Configuration["PATH_BASE"];

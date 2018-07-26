@@ -47,6 +47,7 @@ namespace CoreExamApi.Controllers
             var userId = _identityService.GetUserIdentity();
             var userExamProblemList = await _examContext.UserProblemScores
                 .Where(x => x.UserID == new Guid(userId) && x.ProblemType == problemType && x.ProblemSubType == subType)
+                .OrderBy(o=>o.QuestionNumber)
                 .Select(a => new ExamProblemDto
                 {
                     ID = a.ID,
@@ -89,21 +90,26 @@ namespace CoreExamApi.Controllers
 
                         var userId= _identityService.GetUserIdentity();
                         var userExamScore =await _examContext.UserExamScores.SingleOrDefaultAsync(s=>s.UserID== new Guid(userId));
+                        var userProblemScore = _examContext.UserProblemScores.Where(x => x.Score.HasValue
+                                      && x.UserID == new Guid(userId));
                         switch (userProScore.ProblemType)
                         {
                             case (int)eProblemType.争分夺秒:
-                                userExamScore.TypeScores1 += userProScore.Score;
+                                userExamScore.TypeScores1=await userProblemScore.Where(x=>x.ProblemType== (int)eProblemType.争分夺秒)
+                                    .SumAsync(s=>s.Score)+ userProScore.Score;
                                 break;
                             case (int)eProblemType.一比高下:
-                                userExamScore.TypeScores2 += userProScore.Score;
+                                userExamScore.TypeScores2 = await userProblemScore.Where(x => x.ProblemType == (int)eProblemType.一比高下)
+                                    .SumAsync(s => s.Score) + userProScore.Score;
                                 break;
                             case (int)eProblemType.狭路相逢:
-                                userExamScore.TypeScores3 += userProScore.Score;
+                                userExamScore.TypeScores3 = await userProblemScore.Where(x => x.ProblemType == (int)eProblemType.狭路相逢)
+                                    .SumAsync(s => s.Score) + userProScore.Score;
                                 break;
                         }
                         userExamScore.TotalScores = userExamScore.TypeScores1
                             + userExamScore.TypeScores2 + userExamScore.TypeScores3;
-                        
+                        _examContext.UserExamScores.Update(userExamScore);
                         await _examContext.SaveChangesAsync();
                         json.success = true;
                     }
@@ -130,7 +136,7 @@ namespace CoreExamApi.Controllers
             model.tAnswerCount = userProScore.Count(c=>c.Score>0);
             model.wAnswerCount = userProScore.Count(c=>c.Score<1);
             model.mScore = userProScore.Sum(s => s.Score);
-            model.allScore = userProScore.Sum(s => s.ProblemScore);
+            model.allScore = userProScore.Where(x=>x.ProblemType== type).Sum(s => s.ProblemScore);
             switch (type)
             {
                 case (int)eProblemType.狭路相逢:

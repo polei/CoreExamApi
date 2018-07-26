@@ -1,0 +1,97 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UploadProblem</title>
+
+    <link href="~/Resources/easyui/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Resources/easyui/icon.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background:#fff;">
+    <div class="easyui-panel" id="autofixparentpanel" data-options="fit:true,border:false">
+        <table id="ProblemList" class="easyuigridtable" fit="true">
+            <thead>
+                <tr>
+                    <th field="ProblemName" width="300">题目</th>
+                    <th field="ProblemFeatures" width="300">选项</th>
+                    <th field="Answer" width="100" align="center">答案</th>
+                    <th field="ProblemType" width="80" align="center">类型</th>
+                    <th field="ProblemSubType" width="80">组</th>
+                    <th field="Score" width="80">分值</th>
+                    <th field="QuestionNumber" width="80">题号</th>
+                    <th field="Operation" width="80" align="center">操作</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="easyui-panel autofixsubpanel" id="autofixsubpanel1" data-options="border:false">
+    </div>
+    <div id="toolbar">
+        <form class="easyuiform" name="PostType" method="post" enctype="multipart/form-data">
+            <input class="file btn" name="file" type="file" id="file" accept=".xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" value="浏览" />
+            <input id="Upload" name="Upload" class="btn btnBox" style="width:50px" value="导入" onclick="upload()" type="button" />
+            <select id="ProblemType" name="ProblemType" onchange="ChangeProType()">
+                <option></option>
+                <option value=1>争分夺秒</option>
+                <option value=2>一比高下</option>
+                <option value=3>狭路相逢</option>
+            </select>
+        </form>
+
+    </div>
+    <script src="~/Resources/js/jquery-1.12.4.min.js"></script>
+    <script src="~/Resources/js/old/expandDialog.js"></script>
+    <script src="~/Resources/easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("#ProblemList").datagrid({
+                method: 'get',
+                url: "/Main/GetProblemList?rand=" + Math.random(),
+                pagination: true, /*分页控件*/
+                toolbar: "#toolbar",
+                rownumbers: true, /*行号*/
+                pageList: [10, 20, 30, 40, 50],
+                pageSize: 20, /*此处为每页加载数量，后期可定义到cookie里根据用户设置取值*/
+                pageNumber: 1
+            });
+        })
+
+        function upload() {
+            var formobj = $(".easyuiform");
+            formobj.form('submit', {
+                url: '/Main/ImportExcel',
+                success: function (result) {
+                    try {
+                        var r = $.parseJSON(result);
+                        if (r.success) {
+                            $("#ProblemList").datagrid("reload")
+                        }
+                        $.messager.alert(
+                            '提示',
+                            r.msg,
+                            "info"
+                        );
+
+                    } catch (e) {
+                        $.messager.alert(
+                            '提示',e,"info"
+                        );
+                    }
+                }
+            });
+        }
+
+        function ChangeProType() {
+            $("#ProblemList").datagrid("reload", {
+                ProblemType: $("#ProblemType").val()
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CoreExamApi.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,18 @@ namespace CoreExamApi.Infrastructure.AutofacModules
 {
     public class ApplicationModule : Autofac.Module
     {
-        public ApplicationModule(){}
+        public string QueriesConnectionString { get; }
+        public ApplicationModule(string qconstr)
+        {
+            QueriesConnectionString = qconstr;
+        }
 
         protected override void Load(ContainerBuilder builder)
         {
 
-            //builder.Register(c => new OrderQueries(QueriesConnectionString))
-            //    .As<IOrderQueries>()
-            //    .InstancePerLifetimeScope();
-
-            //builder.RegisterType<BuyerRepository>()
-            //    .As<IBuyerRepository>()
-            //    .InstancePerLifetimeScope();
-
-            //builder.RegisterType<OrderRepository>()
-            //    .As<IOrderRepository>()
-            //    .InstancePerLifetimeScope();
-
-            //builder.RegisterType<RequestManager>()
-            //   .As<IRequestManager>()
-            //   .InstancePerLifetimeScope();
-
-            //builder.RegisterAssemblyTypes(typeof(CreateOrderCommandHandler).GetTypeInfo().Assembly)
-            //    .AsClosedTypesOf(typeof(IIntegrationEventHandler<>));
+            builder.Register(c => new ExamService(QueriesConnectionString))
+                .As<IExamService>()
+                .InstancePerLifetimeScope();
 
         }
     }

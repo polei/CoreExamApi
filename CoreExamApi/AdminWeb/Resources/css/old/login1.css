@@ -1,0 +1,91 @@
+/* css document
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,menu{margin:0;padding:0;}
+html,body,fieldset,img,iframe,abbr{border:0;}
+a,button{cursor:pointer;}
+del,ins,u,s,a,a:hover{text-decoration:none;}
+body,textarea,input,button,select,keygen,legend{font:12px/1.14 arial,\5b8b\4f53;color:#333;outline:0;}
+a,a:hover{outline:0;}
+img,input,select{ border:0; outline:0;}
+*{ font-family:'微软雅黑';}
+.red-b{ color:#ff4200; font-weight:bold;}
+.f-lh34{ line-height:34px;}
+.mt_30{ margin-top:30px;}
+
+.bg1{ width:100%; background-repeat:no-repeat; overflow:hidden; background:url(../images/bg1.jpg); height:1151px;}
+.bg2{ width:100%; text-align:center; background-color:#003366; color:#fff; font-size:14px; height:49px; line-height:49px;}
+.logo-box{ margin-left:auto; margin-right:auto; position:relative; width:970px; height:291px;}
+.logo{ background-repeat:no-repeat; position:absolute; background-image:url(../images/logo1.png); width:970px; height:291px; left:0;}
+.kong{ height:20px;}
+.plane{ position:absolute; background-image:url(../images/plane.png); width:96px; height:40px; top:0; right:-70px;}
+.light{ position:absolute; background-image:url(../images/light.png); width:676px; height:263px; top:20px; right:-45px;}
+.yun1{ position:absolute;  background-image:url(../images/yun1.png); width:243px; height:30px; top:26px; left:10px;}
+.yun2{ position:absolute; background-image:url(../images/yun2.png); width:350px; height:45px; top:210px; left:-253px;}
+.yun3{ position:absolute; background-image:url(../images/yun3.png); width:349px; height:48px; top:102px; right:-190px;}
+.bg_pic{ position:absolute; background-image:url(../images/bg_pic11.png); background-repeat:no-repeat; width:1113px; height:201px; top:890px; left:50%; margin-left:-551px;}
+
+.button-box{ position:absolute; width:450px; left:50%; margin-left:-225px; top:824px;}
+.button1,.button2{ background-repeat:no-repeat; width:183px; height:48px; display:inline-block;}
+.button1{ background-image:url(../images/button1.png); }
+.button2{ background-image:url(../images/button2.png); margin-left:80px;}
+.text1{ position:absolute; background-image:url(../images/text1.png); background-repeat:no-repeat; width:580px; height:25px; left:50%; margin-left:-290px; top:340px;}
+.text-box{ position:absolute; width:600px; left:50%; margin-left:-275px; top:400px; font-size:16px;}
+.phone{ margin-left:15px;}
+
+@media screen and (max-width: 400px) {
+	
+	.bg1{ background:url(../images/s_bg1.jpg); height:765px;}
+	.bg2{ height:60px; line-height:30px; vertical-align:middle;}
+    .phone{ margin-left:0px; display:block;}
+	.logo-box{ width:300px; height:90px; margin-top:10px;}
+	.logo{ background-image:url(../images/logo4.png); background-size:300px 87px; width:300px; height:87px; left:0;}
+	.plane{ background-image:url(../images/s_plane.png); width:48px; height:20px; top:0; right:-20px;}
+    .light{ background-image:url(../images/s_light.png); width:338px; height:131px; top:12px; right:-12px;}
+	.yun1{ background-image:url(../images/s_yun1.png); width:120px; height:15px; position:absolute; top:13px; left:-10px; }
+	.yun2{ background-image:url(../images/s_yun2.png); width:175px; height:23px; position:absolute; top:65px; left:-70px;}
+	.yun3{ background-image:url(../images/s_yun3.png); width:175px; height:24px; position:absolute; top:42px; right:-80px;}
+	.bg_pic{ background-image:url(../images/bg_pic41.png); width:347px; height:62px; top:648px; left:50%; margin-left:-173px;}
+	.button-box{ width:280px; left:50%; margin-left:-140px; top:664px;}
+	.button1,.button2{ background-repeat:no-repeat; width:150px; height:40px; display:inline-block;}
+	.button1{ background-image:url(../images/button1.png); background-size:100px 27px; width:100px; background-repeat:no-repeat; }
+	.button2{ background-image:url(../images/button2.png); background-size:100px 27px; width:100px;  background-repeat:no-repeat; margin-left:60px;}
+	.text1{ background-image:url(../images/text1.png); background-size:290px 13px; width:290px; margin-left:-142px; top:140px;}
+	.text-box{ position:absolute; width:300px; left:50%; margin-left:-150px; top:180px; font-size:14px;}
+	.f-lh34{ line-height:24px;}
+	.mt_30{ margin-top:15px;}
+}
+@media screen and (min-width: 400px) and (max-width: 800px) {
+	.bg1{ background:url(../images/s_bg1.jpg); height:805px;}
+	.bg2{ height:60px; line-height:30px; vertical-align:middle;}
+    .phone{ margin-left:0px; display:block;}
+	.logo-box{ width:380px; height:114px; margin-top:10px;}
+    .logo{ background-image:url(../images/logo3.png);  width:380px; height:114px; left:0;}
+	.plane{ background-image:url(../images/s_plane.png); width:48px; height:20px; top:10; right:-30px;}
+    .light{ background-image:url(../images/s_light.png); width:338px; height:131px; top:12px; right:-22px;}
+	.yun1{ background-image:url(../images/s_yun1.png); width:120px; height:15px; position:absolute; top:13px; left:-10px;}
+	.yun2{ background-image:url(../images/s_yun2.png); width:175px; height:23px; position:absolute; top:90px; left:-120px;}
+	.yun3{ background-image:url(../images/s_yun3.png); width:175px; height:24px; position:absolute; top:42px; right:-80px;}
+	.bg_pic{ background-image:url(../images/bg_pic31.png); width:557px; height:100px; top:650px; left:50%; margin-left:-279px;}
+	.button-box{ width:380px; left:50%; margin-left:-190px; top:624px;}
+	.button1,.button2{ background-repeat:no-repeat; width:150px; height:40px; display:inline-block;}
+	.button1{ background-image:url(../images/s_button1.png); }
+	.button2{ background-image:url(../images/s_button2.png); margin-left:60px;}
+	.text1{ background-image:url(../images/s_text1.png); width:408px; height:19px; left:50%; margin-left:-204px; top:180px;}
+	.text-box{ position:absolute; width:380px; left:50%; margin-left:-190px; top:230px; font-size:14px;}
+	.f-lh34{ line-height:28px;}
+	.mt_30{ margin-top:10px;}
+}
+@media screen and (min-width: 800px) and (max-width: 1300px) {
+	.bg1{ background:url(../images/bg1.jpg); height:1151px;}
+	.bg2{ height:49px; line-height:49px;}
+	.logo-box{ width:730px; height:219px; }
+    .logo{ background-image:url(../images/logo2.png); width:730px; height:219px; left:0;}
+	.plane{ background-image:url(../images/plane.png); width:96px; height:40px; top:0; right:-70px;}
+    .light{ background-image:url(../images/light.png); width:676px; height:263px; top:20px; right:-45px;}
+	.yun1{ background-image:url(../images/yun1.png); width:243px; height:30px;  top:26px; left:10px;}
+	.yun2{ background-image:url(../images/yun2.png); width:350px; height:45px; top:160px; left:-150px; }
+	.yun3{ background-image:url(../images/yun3.png); width:349px; height:48px; top:92px; right:-170px;  }
+	.bg_pic{ background-image:url(../images/bg_pic21.png); width:859px; height:155px; top:870px; left:50%; margin-left:-430px;}
+	.text1{ top:260px;}
+	.button-box{top:804px;}
+	.text-box{ position:absolute; width:550px; left:50%; margin-left:-225px; top:320px; font-size:16px;}
+} */

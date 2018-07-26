@@ -1,0 +1,519 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2AB37F06-708D-41DB-AB03-7D4417A5425A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AdminWeb</RootNamespace>
+    <AssemblyName>AdminWeb</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.0.0\lib\net451\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.0\lib\net451\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.50.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.1\lib\net451\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net40\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.5.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Web.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.4\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Deployment">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Webpages.Razor">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Webpages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\packages\Microsoft.AspNet.Webpages.3.2.4\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.4\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Resources\css\old\base.css" />
+    <Content Include="Resources\css\old\default.css" />
+    <Content Include="Resources\css\old\index.css" />
+    <Content Include="Resources\css\old\login.css" />
+    <Content Include="Resources\css\old\login1.css" />
+    <Content Include="Resources\css\old\login2.css" />
+    <Content Include="Resources\css\old\main_top.css" />
+    <Content Include="Resources\easyui\default\accordion.css" />
+    <Content Include="Resources\easyui\default\calendar.css" />
+    <Content Include="Resources\easyui\default\combo.css" />
+    <Content Include="Resources\easyui\default\combobox.css" />
+    <Content Include="Resources\easyui\default\datagrid.css" />
+    <Content Include="Resources\easyui\default\datebox.css" />
+    <Content Include="Resources\easyui\default\dialog.css" />
+    <Content Include="Resources\easyui\default\easyui.css" />
+    <Content Include="Resources\easyui\default\easyui1.css" />
+    <Content Include="Resources\easyui\default\images\accordion_arrows.png" />
+    <Content Include="Resources\easyui\default\images\blank.gif" />
+    <Content Include="Resources\easyui\default\images\calendar_arrows.png" />
+    <Content Include="Resources\easyui\default\images\combo_arrow.png" />
+    <Content Include="Resources\easyui\default\images\datagrid_icons.png" />
+    <Content Include="Resources\easyui\default\images\datebox_arrow.png" />
+    <Content Include="Resources\easyui\default\images\layout_arrows.png" />
+    <Content Include="Resources\easyui\default\images\linkbutton_bg.png" />
+    <Content Include="Resources\easyui\default\images\loading.gif" />
+    <Content Include="Resources\easyui\default\images\menu_arrows.png" />
+    <Content Include="Resources\easyui\default\images\messager_icons.png" />
+    <Content Include="Resources\easyui\default\images\pagination_icons.png" />
+    <Content Include="Resources\easyui\default\images\panel_tools.png" />
+    <Content Include="Resources\easyui\default\images\searchbox_button.png" />
+    <Content Include="Resources\easyui\default\images\slider_handle.png" />
+    <Content Include="Resources\easyui\default\images\spinner_arrows.png" />
+    <Content Include="Resources\easyui\default\images\tabs_icons.png" />
+    <Content Include="Resources\easyui\default\images\tab_bg.gif" />
+    <Content Include="Resources\easyui\default\images\tree_icons.png" />
+    <Content Include="Resources\easyui\default\images\validatebox_warning.png" />
+    <Content Include="Resources\easyui\default\layout.css" />
+    <Content Include="Resources\easyui\default\linkbutton.css" />
+    <Content Include="Resources\easyui\default\menu.css" />
+    <Content Include="Resources\easyui\default\menubutton.css" />
+    <Content Include="Resources\easyui\default\messager.css" />
+    <Content Include="Resources\easyui\default\pagination.css" />
+    <Content Include="Resources\easyui\default\panel.css" />
+    <Content Include="Resources\easyui\default\progressbar.css" />
+    <Content Include="Resources\easyui\default\propertygrid.css" />
+    <Content Include="Resources\easyui\default\searchbox.css" />
+    <Content Include="Resources\easyui\default\slider.css" />
+    <Content Include="Resources\easyui\default\spinner.css" />
+    <Content Include="Resources\easyui\default\splitbutton.css" />
+    <Content Include="Resources\easyui\default\tabs.css" />
+    <Content Include="Resources\easyui\default\tooltip.css" />
+    <Content Include="Resources\easyui\default\tree.css" />
+    <Content Include="Resources\easyui\default\validatebox.css" />
+    <Content Include="Resources\easyui\default\window.css" />
+    <Content Include="Resources\easyui\icon.css" />
+    <Content Include="Resources\easyui\icons\back.png" />
+    <Content Include="Resources\easyui\icons\blank.gif" />
+    <Content Include="Resources\easyui\icons\cancel.png" />
+    <Content Include="Resources\easyui\icons\cut.png" />
+    <Content Include="Resources\easyui\icons\edit_add.png" />
+    <Content Include="Resources\easyui\icons\edit_remove.png" />
+    <Content Include="Resources\easyui\icons\filesave.png" />
+    <Content Include="Resources\easyui\icons\help.png" />
+    <Content Include="Resources\easyui\icons\mini_add.png" />
+    <Content Include="Resources\easyui\icons\mini_edit.png" />
+    <Content Include="Resources\easyui\icons\mini_refresh.png" />
+    <Content Include="Resources\easyui\icons\no.png" />
+    <Content Include="Resources\easyui\icons\ok.png" />
+    <Content Include="Resources\easyui\icons\pencil.png" />
+    <Content Include="Resources\easyui\icons\print.png" />
+    <Content Include="Resources\easyui\icons\redo.png" />
+    <Content Include="Resources\easyui\icons\reload.png" />
+    <Content Include="Resources\easyui\icons\search.png" />
+    <Content Include="Resources\easyui\icons\sum.png" />
+    <Content Include="Resources\easyui\icons\tip.png" />
+    <Content Include="Resources\easyui\icons\undo.png" />
+    <Content Include="Resources\easyui\jquery.easyui.min.js" />
+    <Content Include="Resources\images\admin\admin_header.jpg" />
+    <Content Include="Resources\images\bg.jpg" />
+    <Content Include="Resources\images\bg.png" />
+    <Content Include="Resources\images\bg_mountain.png" />
+    <Content Include="Resources\images\bg_new.jpg" />
+    <Content Include="Resources\images\certificate.png" />
+    <Content Include="Resources\images\certificate_preview.png" />
+    <Content Include="Resources\images\certificate_unpro.jpg" />
+    <Content Include="Resources\images\certificate_unpro.png" />
+    <Content Include="Resources\images\certificate_unPro_preview.jpg" />
+    <Content Include="Resources\images\certificate_unpro_preview.png" />
+    <Content Include="Resources\images\icon\clock.png" />
+    <Content Include="Resources\images\icon\close.png" />
+    <Content Include="Resources\images\icon\exit.png" />
+    <Content Include="Resources\images\icon\exit_old.png" />
+    <Content Include="Resources\images\icon\forget_bg.png" />
+    <Content Include="Resources\images\icon\icon_main_ball.png" />
+    <Content Include="Resources\images\icon\icon_side_ball.png" />
+    <Content Include="Resources\images\icon\member.png" />
+    <Content Include="Resources\images\icon\nav.png" />
+    <Content Include="Resources\images\icon\password.png" />
+    <Content Include="Resources\images\icon\plus.png" />
+    <Content Include="Resources\images\icon\start.png" />
+    <Content Include="Resources\images\icon\tab_red.png" />
+    <Content Include="Resources\images\icon\tag.png" />
+    <Content Include="Resources\images\icon\userinfo.png" />
+    <Content Include="Resources\images\icon\warning.png" />
+    <Content Include="Resources\images\login\login_bg.jpg" />
+    <Content Include="Resources\images\login\login_bg.png" />
+    <Content Include="Resources\images\notice.png" />
+    <Content Include="Resources\images\old\addIcon.gif" />
+    <Content Include="Resources\images\old\anniu.gif" />
+    <Content Include="Resources\images\old\anniu1.gif" />
+    <Content Include="Resources\images\old\approval.png" />
+    <Content Include="Resources\images\old\bodyBg.jpg" />
+    <Content Include="Resources\images\old\btnIcon.png" />
+    <Content Include="Resources\images\old\btnIcon01.png" />
+    <Content Include="Resources\images\old\btnIcon02.png" />
+    <Content Include="Resources\images\old\btnProAuto.png" />
+    <Content Include="Resources\images\old\btnUpload.gif" />
+    <Content Include="Resources\images\old\btn_bg.png" />
+    <Content Include="Resources\images\old\btn_select_bg.gif" />
+    <Content Include="Resources\images\old\btn_text_bg.gif" />
+    <Content Include="Resources\images\old\bubble-tail2.png" />
+    <Content Include="Resources\images\old\calendar_iocn.gif" />
+    <Content Include="Resources\images\old\close.png" />
+    <Content Include="Resources\images\old\closeBtn.png" />
+    <Content Include="Resources\images\old\code.jpg" />
+    <Content Include="Resources\images\old\control_imgs_1.gif" />
+    <Content Include="Resources\images\old\cxBtn.png" />
+    <Content Include="Resources\images\old\czBtn.png" />
+    <Content Include="Resources\images\old\czBtn0.png" />
+    <Content Include="Resources\images\old\czBtn01.png" />
+    <Content Include="Resources\images\old\czBtn02.png" />
+    <Content Include="Resources\images\old\czBtn03.png" />
+    <Content Include="Resources\images\old\czBtn04.png" />
+    <Content Include="Resources\images\old\czBtn05.png" />
+    <Content Include="Resources\images\old\dataBg01.png" />
+    <Content Include="Resources\images\old\dataBg02.png" />
+    <Content Include="Resources\images\old\dataBg03.png" />
+    <Content Include="Resources\images\old\del.gif" />
+    <Content Include="Resources\images\old\dialog_header_bg.gif" />
+    <Content Include="Resources\images\old\dlBtn.gif" />
+    <Content Include="Resources\images\old\dlBtn0.gif" />
+    <Content Include="Resources\images\old\editorPic.jpg" />
+    <Content Include="Resources\images\old\error.jpg" />
+    <Content Include="Resources\images\old\exitIcon.png" />
+    <Content Include="Resources\images\old\footerBg.gif" />
+    <Content Include="Resources\images\old\foot_bg.gif" />
+    <Content Include="Resources\images\old\formBg.png" />
+    <Content Include="Resources\images\old\formTableTitle.gif" />
+    <Content Include="Resources\images\old\head_bg.gif" />
+    <Content Include="Resources\images\old\indexImg.png" />
+    <Content Include="Resources\images\old\jiance1_ns.png" />
+    <Content Include="Resources\images\old\jiance1_nx.png" />
+    <Content Include="Resources\images\old\jiance2_ns.png" />
+    <Content Include="Resources\images\old\jiance2_nx.png" />
+    <Content Include="Resources\images\old\jiance3_ns.png" />
+    <Content Include="Resources\images\old\jiance3_nx.png" />
+    <Content Include="Resources\images\old\jiance4_ns.png" />
+    <Content Include="Resources\images\old\jiance4_nx.png" />
+    <Content Include="Resources\images\old\jt01.png" />
+    <Content Include="Resources\images\old\jt02.png" />
+    <Content Include="Resources\images\old\jtDown.png" />
+    <Content Include="Resources\images\old\jt_hover.png" />
+    <Content Include="Resources\images\old\jt_normal.png" />
+    <Content Include="Resources\images\old\ksglxtBtn01.gif" />
+    <Content Include="Resources\images\old\ksglxtBtn02.gif" />
+    <Content Include="Resources\images\old\layerBottomBg.gif" />
+    <Content Include="Resources\images\old\layerBtnBg.png" />
+    <Content Include="Resources\images\old\layerBtnBg02.gif" />
+    <Content Include="Resources\images\old\layerBtnBg02.png" />
+    <Content Include="Resources\images\old\layerTitle_Center.png" />
+    <Content Include="Resources\images\old\layerTitle_Left.png" />
+    <Content Include="Resources\images\old\layerTitle_Right.png" />
+    <Content Include="Resources\images\old\leftMenuBg.gif" />
+    <Content Include="Resources\images\old\leftMenuTitle.gif" />
+    <Content Include="Resources\images\old\left_icon.gif" />
+    <Content Include="Resources\images\old\load.gif" />
+    <Content Include="Resources\images\old\load.jpg" />
+    <Content Include="Resources\images\old\LocklayerBg.png" />
+    <Content Include="Resources\images\old\loginBg.gif" />
+    <Content Include="Resources\images\old\loginBg.jpg" />
+    <Content Include="Resources\images\old\loginBtnBg.gif" />
+    <Content Include="Resources\images\old\login_logo.png" />
+    <Content Include="Resources\images\old\login_right.png" />
+    <Content Include="Resources\images\old\login_right1.jpg" />
+    <Content Include="Resources\images\old\logo.gif" />
+    <Content Include="Resources\images\old\logo.jpg" />
+    <Content Include="Resources\images\old\logo.png" />
+    <Content Include="Resources\images\old\logo2.gif" />
+    <Content Include="Resources\images\old\logo_mail.png" />
+    <Content Include="Resources\images\old\logo_new.png" />
+    <Content Include="Resources\images\old\lose.png" />
+    <Content Include="Resources\images\old\menuListBg01.png" />
+    <Content Include="Resources\images\old\menuListBg02.png" />
+    <Content Include="Resources\images\old\menuListBg03.png" />
+    <Content Include="Resources\images\old\nav-download.png" />
+    <Content Include="Resources\images\old\nav_bg.gif" />
+    <Content Include="Resources\images\old\nav_hover_bg.gif" />
+    <Content Include="Resources\images\old\nav_line.gif" />
+    <Content Include="Resources\images\old\node.gif" />
+    <Content Include="Resources\images\old\node.png" />
+    <Content Include="Resources\images\old\node_bg.gif" />
+    <Content Include="Resources\images\old\nothing.png" />
+    <Content Include="Resources\images\old\personIcon.png" />
+    <Content Include="Resources\images\old\pic.jpg" />
+    <Content Include="Resources\images\old\process.png" />
+    <Content Include="Resources\images\old\process_bg.gif" />
+    <Content Include="Resources\images\old\RtitleBg.gif" />
+    <Content Include="Resources\images\old\Rtitle_Center.gif" />
+    <Content Include="Resources\images\old\Rtitle_Left.gif" />
+    <Content Include="Resources\images\old\Rtitle_Right.gif" />
+    <Content Include="Resources\images\old\selectBtnBg.gif" />
+    <Content Include="Resources\images\old\setIcon.png" />
+    <Content Include="Resources\images\old\shrinkBtn.gif" />
+    <Content Include="Resources\images\old\shrink_left.gif" />
+    <Content Include="Resources\images\old\shrink_right.gif" />
+    <Content Include="Resources\images\old\smalltab_bg.gif" />
+    <Content Include="Resources\images\old\starburst.gif" />
+    <Content Include="Resources\images\old\success.png" />
+    <Content Include="Resources\images\old\tableTitleBg.gif" />
+    <Content Include="Resources\images\old\tab_bg.gif" />
+    <Content Include="Resources\images\old\tab_line.gif" />
+    <Content Include="Resources\images\old\TCloseBtn.gif" />
+    <Content Include="Resources\images\old\TCloseBtn01.gif" />
+    <Content Include="Resources\images\old\tcTipTitle.gif" />
+    <Content Include="Resources\images\old\testIcon.png" />
+    <Content Include="Resources\images\old\tipBg.gif" />
+    <Content Include="Resources\images\old\tipBox.png" />
+    <Content Include="Resources\images\old\tipIcon.png" />
+    <Content Include="Resources\images\old\tipIcon02.png" />
+    <Content Include="Resources\images\old\tipsBg.png" />
+    <Content Include="Resources\images\old\topBg.gif" />
+    <Content Include="Resources\images\old\topLine.gif" />
+    <Content Include="Resources\images\old\topMenuBg_hover.png" />
+    <Content Include="Resources\images\old\topMenuLine.gif" />
+    <Content Include="Resources\images\old\topMenu_centerBg.gif" />
+    <Content Include="Resources\images\old\topMenu_Left.png" />
+    <Content Include="Resources\images\old\topMenu_right.png" />
+    <Content Include="Resources\images\old\ts.gif" />
+    <Content Include="Resources\images\old\txCode.png" />
+    <Content Include="Resources\images\old\txJpg.jpg" />
+    <Content Include="Resources\images\old\txtBg.gif" />
+    <Content Include="Resources\images\old\UpLoadBtnBg.gif" />
+    <Content Include="Resources\images\old\uploadify-cancel.png" />
+    <Content Include="Resources\images\old\user.png" />
+    <Content Include="Resources\images\old\userIcon.png" />
+    <Content Include="Resources\images\old\userLayerBt.png" />
+    <Content Include="Resources\images\old\userLayerC.png" />
+    <Content Include="Resources\images\old\userLayerTop.png" />
+    <Content Include="Resources\images\old\xtBtn.gif" />
+    <Content Include="Resources\images\old\xtBtn01.gif" />
+    <Content Include="Resources\images\old\xtBtn02.gif" />
+    <Content Include="Resources\images\old\zjyxtBtn01.gif" />
+    <Content Include="Resources\images\old\zjyxtBtn02.gif" />
+    <Content Include="Resources\images\old\未标题-3.png" />
+    <Content Include="Resources\images\register_bg.png" />
+    <Content Include="Resources\images\tip.png" />
+    <Content Include="Resources\images\trail.png" />
+    <Content Include="Resources\js\DD_belatedPNG.js" />
+    <Content Include="Resources\js\Exam.js" />
+    <Content Include="Resources\js\jquery-1.12.4.min.js" />
+    <Content Include="Resources\js\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Resources\js\menu.js" />
+    <Content Include="Resources\js\old\expandDialog.js" />
+    <Content Include="Resources\js\switch.js" />
+    <Content Include="Resources\My97DatePicker\calendar.js" />
+    <Content Include="Resources\My97DatePicker\lang\en.js" />
+    <Content Include="Resources\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Resources\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Resources\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Resources\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Resources\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Resources\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Resources\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Resources\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Resources\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Resources\My97DatePicker\WdatePicker.js" />
+    <Content Include="Resources\My97DatePicker\开发包\lang\en.js" />
+    <Content Include="Resources\My97DatePicker\开发包\lang\zh-cn.js" />
+    <Content Include="Resources\My97DatePicker\开发包\lang\zh-tw.js" />
+    <Content Include="Resources\My97DatePicker\开发包\readme.txt" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\datePicker.gif" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\default\datepicker.css" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\default\img.gif" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\WdatePicker.css" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\whyGreen\bg.jpg" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\whyGreen\datepicker.css" />
+    <Content Include="Resources\My97DatePicker\开发包\skin\whyGreen\img.gif" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\Extensions\AdminAuthorizeAttribute.cs" />
+    <Compile Include="Common\Extensions\EnumExtensions.cs" />
+    <Compile Include="Common\Extensions\IWorkContext.cs" />
+    <Compile Include="Common\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Common\Extensions\PredicateBuilderUtility.cs" />
+    <Compile Include="Common\Extensions\TypeExtensions.cs" />
+    <Compile Include="Common\Extensions\WebWorkContext.cs" />
+    <Compile Include="Common\Fakes\Extensions.cs" />
+    <Compile Include="Common\Fakes\FakeHttpContext.cs" />
+    <Compile Include="Common\Fakes\FakeHttpRequest.cs" />
+    <Compile Include="Common\Fakes\FakeHttpResponse.cs" />
+    <Compile Include="Common\Fakes\FakeHttpSessionState.cs" />
+    <Compile Include="Common\Fakes\FakeIdentity.cs" />
+    <Compile Include="Common\Fakes\FakePrincipal.cs" />
+    <Compile Include="Common\Log\ConsoleLoger.cs" />
+    <Compile Include="Common\Log\ILogger.cs" />
+    <Compile Include="Common\Log\LoggerBase.cs" />
+    <Compile Include="Common\Log\LoggerFactory.cs" />
+    <Compile Include="Common\Log\LoggerType.cs" />
+    <Compile Include="Common\Log\LoggingExtensions.cs" />
+    <Compile Include="Common\Log\LogHelper.cs" />
+    <Compile Include="Common\Log\LogLevel.cs" />
+    <Compile Include="Common\Log\NLoger.cs" />
+    <Compile Include="Common\Log\NullLogger.cs" />
+    <Compile Include="Common\Models\UserInfo.cs" />
+    <Compile Include="Common\Security\Crypt.cs" />
+    <Compile Include="Common\Security\FormsAuthenticationService.cs" />
+    <Compile Include="Common\Security\IAuthenticationService.cs" />
+    <Compile Include="Common\Utitlies\Singleton.cs" />
+    <Compile Include="Common\Utitlies\TypeParse.cs" />
+    <Compile Include="Common\Utitlies\Utils.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BaseSetting.cs" />
+    <Compile Include="Models\Problem.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserProblemScore.cs" />
+    <Compile Include="Models\UserScore.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ExamService.cs" />
+    <Compile Include="Services\IExamService.cs" />
+    <Compile Include="Services\IUserService.cs" />
+    <Compile Include="Services\UserService.cs" />
+    <Compile Include="ViewModel\LoginInfoViewModel.cs" />
+    <Compile Include="ViewModel\mJsonResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\web.config" />
+    <Content Include="NLog.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\UserPageList.cshtml" />
+    <Content Include="Views\Main\ProblemList.cshtml" />
+    <Content Include="Views\Main\UserScoreList.cshtml" />
+    <Content Include="Views\Main\ExamSetting.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57291</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57291/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.6.1\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

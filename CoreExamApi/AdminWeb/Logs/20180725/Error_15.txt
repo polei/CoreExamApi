@@ -1,0 +1,3 @@
+[15:02:16][Error] 考前发题错误不能将值 NULL 插入列 'IsOver'，表 'PMSoft.ExamDb.dbo.UserExamScore'；列不允许有 Null 值。INSERT 失败。
+语句已终止。|[]
+[15:05:32][Error] 考前发题错误必须声明标量变量 "@ProblemName"。|[]

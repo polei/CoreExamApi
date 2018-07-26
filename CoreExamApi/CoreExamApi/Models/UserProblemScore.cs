@@ -21,6 +21,9 @@ namespace CoreExamApi.Models
         /// 预先导入？
         /// </summary>
         #region 题目
+        [Display(Name = "考试题问题ID")]
+        public Guid ProblemID { get; set; }
+
         [Display(Name = "考试题问题")]
         [StringLength(500)]
         public string ProblemName { get; set; }

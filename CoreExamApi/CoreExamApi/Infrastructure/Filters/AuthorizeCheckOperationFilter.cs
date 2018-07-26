@@ -25,7 +25,7 @@ namespace CoreExamApi.Infrastructure.Filters
                 {
                     new Dictionary<string, IEnumerable<string>>
                     {
-                        { "oauth2", new [] { "examingapi" } }
+                        { "Bearer", Enumerable.Empty<string>() }
                     }
                 };
             }

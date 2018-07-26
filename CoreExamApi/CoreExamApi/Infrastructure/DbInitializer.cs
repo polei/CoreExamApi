@@ -1,4 +1,5 @@
 ﻿using CoreExamApi.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,12 @@ namespace CoreExamApi.Infrastructure
     {
         public static void Initialize(ExamContext context)
         {
-            context.Database.EnsureCreated();
+            //context.Database.EnsureCreated();
+            context.Database.AutoTransactionsEnabled = true;
+            if (context.Database.GetPendingMigrations().Any())
+            {
+                context.Database.Migrate();
+            }
             if (!context.Users.Any())
             {
                 context.Users.Add(GetAdminUser());

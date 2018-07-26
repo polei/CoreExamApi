@@ -1,0 +1,51 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExamSetting</title>
+    <style>
+        .group{
+            
+        }
+    </style>
+</head>
+<body style="background:#fff">
+    @using (Ajax.BeginForm("SaveBaseSetting", "Main", new AjaxOptions { HttpMethod = "Post", OnBegin = "begin", OnSuccess = "success", OnFailure = "failure" }, new { id = "form1", role = "form" }))
+    {
+    <div>
+        <button class="ml-8" type="submit" >保存设置</button>
+        <input type="button" value="考前发题" onclick="Issue()" class="margin" />
+        <div class="group">
+            <label>争分夺秒</label>
+            <span>每题秒数：</span><input type="text" name="TypeTimeSpan1" />
+        </div>
+        <div class="group">
+            <label>一比高下</label>
+            <span>每题秒数：</span><input type="text" name="TypeTimeSpan2" />
+        </div>
+        <div class="group">
+
+            <label>狭路相逢</label>
+            <span>每题是否参与秒数：</span><input type="text" name="PartTimeSpan" />
+            <span>每题秒数：</span><input type="text" name="TypeTimeSpan3" />
+        </div>
+    </div>
+    }
+
+    <script src="~/Resources/js/jquery-1.12.4.min.js"></script>
+    <script src="~/Resources/js/jquery.unobtrusive-ajax.min.js"></script>
+    <script>
+        function Issue() {
+            $.post("/Main/Issue", {}, function (res) {
+                alert(res.msg);
+            })
+        }
+    </script>
+</body>
+</html>

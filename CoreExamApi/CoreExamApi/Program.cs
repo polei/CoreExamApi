@@ -27,7 +27,7 @@ namespace CoreExamApi
             //            .Wait();
 
             //    }).Run();
-            var host = CreateWebHostBuilder(args);
+            var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
@@ -49,9 +49,9 @@ namespace CoreExamApi
 
         }
 
-        public static IWebHost CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseStartup<Startup>().Build();
+            .UseStartup<Startup>();
     }
 }
