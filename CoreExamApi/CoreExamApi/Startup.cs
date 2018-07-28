@@ -164,7 +164,7 @@ namespace CoreExamApi
                         // If the request is for our hub...
                         var path = context.HttpContext.Request.Path;
                         if (!string.IsNullOrEmpty(accessToken) &&
-                            (path.StartsWithSegments("/hubs/chat")))
+                            (path.StartsWithSegments("/notificationhub")))
                         {
                             // Read the token out of the query string
                             context.Token = accessToken;
@@ -192,7 +192,7 @@ namespace CoreExamApi
             app.UseHttpsRedirection();
             app.UseMvc();
 
-            //signal
+            //signalr
             app.UseSignalR(routes =>
             {
                 routes.MapHub<NotificationsHub>("/notificationhub", options =>

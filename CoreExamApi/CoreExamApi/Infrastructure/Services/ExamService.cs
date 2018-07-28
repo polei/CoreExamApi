@@ -1,5 +1,6 @@
 ﻿using CoreExamApi.Dto;
 using CoreExamApi.Infrastructure.Enum;
+using CoreExamApi.ViewModel;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,6 @@ namespace CoreExamApi.Infrastructure.Services
         /// </summary>
         /// <param name="problemType">哪种类型的排名</param>
         /// <returns></returns>
-
         public async Task<List<UserRankingDto>> GetUserRankingList(int? problemType)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -61,5 +61,24 @@ namespace CoreExamApi.Infrastructure.Services
                 return result.ToList();
             }
         }
+
+        /// <summary>
+        /// 获取排名（手机端使用）
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<UserRankingModel>> GetUserRankingList()
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var result = await connection.QueryAsync<UserRankingModel>(@"
+                        select rank() over (order by TotalScores desc)as RankingNum
+                        ,UserID,TotalScores as Score 
+                        from [dbo].[UserExamScore]");
+                return result.ToList();
+            }
+        }
+
+       
     }
 }

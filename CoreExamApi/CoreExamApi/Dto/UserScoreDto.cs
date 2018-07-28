@@ -35,5 +35,10 @@ namespace CoreExamApi.Dto
         /// 狭路相逢分数
         /// </summary>
         public decimal? TypeScores3 { get; set; }
+
+        /// <summary>
+        /// 排名
+        /// </summary>
+        public int ranking { get; set; }
     }
 }

@@ -26,10 +26,14 @@ namespace CoreExamApi.Controllers
     {
         private readonly ExamContext _examContext;
         private readonly IIdentityService _identityService;
-        public ExamController(ExamContext context, IIdentityService identityService)
+        private readonly IExamService _examService;
+        public ExamController(ExamContext context
+            , IIdentityService identityService
+            , IExamService examService)
         {
             _examContext = context ?? throw new ArgumentNullException(nameof(context));
             _identityService = identityService;
+            _examService = examService;
 
         }
 
@@ -46,8 +50,10 @@ namespace CoreExamApi.Controllers
         {
             var userId = _identityService.GetUserIdentity();
             var userExamProblemList = await _examContext.UserProblemScores
-                .Where(x => x.UserID == new Guid(userId) && x.ProblemType == problemType && x.ProblemSubType == subType)
-                .OrderBy(o=>o.QuestionNumber)
+                .Where(x => x.UserID == new Guid(userId) 
+                && x.ProblemType == problemType 
+                && x.ProblemSubType == subType)
+                .OrderBy(o => o.QuestionNumber)
                 .Select(a => new ExamProblemDto
                 {
                     ID = a.ID,
@@ -69,7 +75,7 @@ namespace CoreExamApi.Controllers
         [ProducesResponseType(typeof(mJsonResult), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> SaveOneProblem(SubmitProblemViewModel model)
         {
-            var json =new mJsonResult();
+            var json = new mJsonResult();
             if (ModelState.IsValid)
             {
                 //var userId = _identityService.GetUserIdentity();
@@ -85,18 +91,25 @@ namespace CoreExamApi.Controllers
                         string answer = userProScore.Answer
                                 .Replace("\n", "").Replace(" ", "")
                                 .Replace("\t", "").Replace("\r", "");
-                        userProScore.Score = model.submitAnswer == answer
-                        ? userProScore.ProblemScore : 0;
-
-                        var userId= _identityService.GetUserIdentity();
-                        var userExamScore =await _examContext.UserExamScores.SingleOrDefaultAsync(s=>s.UserID== new Guid(userId));
+                        if(userProScore.ProblemType== (int)eProblemType.狭路相逢)
+                        {
+                            userProScore.Score = model.submitAnswer == answer
+                                ? userProScore.ProblemScore : -userProScore.ProblemScore;
+                        }
+                        else
+                        {
+                            userProScore.Score = model.submitAnswer == answer
+                                ? userProScore.ProblemScore : 0;
+                        }
+                        var userId = _identityService.GetUserIdentity();
+                        var userExamScore = await _examContext.UserExamScores.SingleOrDefaultAsync(s => s.UserID == new Guid(userId));
                         var userProblemScore = _examContext.UserProblemScores.Where(x => x.Score.HasValue
                                       && x.UserID == new Guid(userId));
                         switch (userProScore.ProblemType)
                         {
                             case (int)eProblemType.争分夺秒:
-                                userExamScore.TypeScores1=await userProblemScore.Where(x=>x.ProblemType== (int)eProblemType.争分夺秒)
-                                    .SumAsync(s=>s.Score)+ userProScore.Score;
+                                userExamScore.TypeScores1 = await userProblemScore.Where(x => x.ProblemType == (int)eProblemType.争分夺秒)
+                                    .SumAsync(s => s.Score) + userProScore.Score;
                                 break;
                             case (int)eProblemType.一比高下:
                                 userExamScore.TypeScores2 = await userProblemScore.Where(x => x.ProblemType == (int)eProblemType.一比高下)
@@ -107,8 +120,8 @@ namespace CoreExamApi.Controllers
                                     .SumAsync(s => s.Score) + userProScore.Score;
                                 break;
                         }
-                        userExamScore.TotalScores = userExamScore.TypeScores1
-                            + userExamScore.TypeScores2 + userExamScore.TypeScores3;
+                        userExamScore.TotalScores = (userExamScore.TypeScores1??0)
+                            + (userExamScore.TypeScores2??0) + (userExamScore.TypeScores3??0);
                         _examContext.UserExamScores.Update(userExamScore);
                         await _examContext.SaveChangesAsync();
                         json.success = true;
@@ -127,21 +140,22 @@ namespace CoreExamApi.Controllers
         [HttpGet]
         [Route("detail")]
         [ProducesResponseType(typeof(ModuleDetailDto), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetModuleDetail(int type=1)
+        public async Task<IActionResult> GetModuleDetail(int type = 1)
         {
             ModuleDetailDto model = new ModuleDetailDto();
             var userId = _identityService.GetUserIdentity();
             var userProScore = await _examContext.UserProblemScores
-                   .Where(x=>x.UserID== new Guid(userId)).ToListAsync();
-            model.tAnswerCount = userProScore.Count(c=>c.Score>0);
-            model.wAnswerCount = userProScore.Count(c=>c.Score<1);
-            model.mScore = userProScore.Sum(s => s.Score);
-            model.allScore = userProScore.Where(x=>x.ProblemType== type).Sum(s => s.ProblemScore);
+                   .Where(x => x.UserID == new Guid(userId)).ToListAsync();
+            var userTypeProScore = userProScore.Where(x=>x.ProblemType==type);
+            model.tAnswerCount = userTypeProScore.Count(c => c.Score > 0);
+            model.wAnswerCount = userTypeProScore.Count(c => c.Score < 1);
+            model.mScore = userTypeProScore.Sum(s => s.Score);
+            model.allScore = userProScore.Sum(s => s.Score);
             switch (type)
             {
                 case (int)eProblemType.狭路相逢:
-                    model.ranking = 0; 
-                        //_examContext.UserExamScores.OrderByDescending(o=>o.TotalScores).
+                    model.ranking = await _examContext.UserExamScores
+                        .Where(o => o.TotalScores > model.allScore).CountAsync() + 1;
                     break;
             }
             return Ok(model);
@@ -158,16 +172,53 @@ namespace CoreExamApi.Controllers
         {
             UserScoreDto model = new UserScoreDto();
             var userId = _identityService.GetUserIdentity();
-            var userScore = await _examContext.UserExamScores
+            var userScore = await _examContext.UserExamScores.Include(c=>c.User)//默认不开启懒加载
                 .SingleOrDefaultAsync(x => x.UserID == new Guid(userId));
-            model.TrueName = userScore.User.TrueName;
-            model.TotalScores = userScore.TotalScores;
-            model.TypeScores1 = userScore.TypeScores1;
-            model.TypeScores2 = userScore.TypeScores2;
-            model.TypeScores3 = userScore.TypeScores3;
+            if (userScore != null)
+            {
+                model.TrueName = userScore.User?.TrueName;
+                model.TotalScores = userScore.TotalScores;
+                model.TypeScores1 = userScore.TypeScores1;
+                model.TypeScores2 = userScore.TypeScores2;
+                model.TypeScores3 = userScore.TypeScores3;
+                model.ranking = await _examContext.UserExamScores
+                            .Where(o => o.TotalScores > model.TotalScores).CountAsync() + 1;
+            }
             return Ok(model);
         }
 
+        /// <summary>
+        /// 获取排名（手机顶部）
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("userRanking")]
+        [ProducesResponseType(typeof(SingleUserRankingDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetUserRanking()
+        {
+            SingleUserRankingDto model = new SingleUserRankingDto();
+            var userId = _identityService.GetUserIdentity();
+            var userRankingList = await _examService.GetUserRankingList();
+            var userRanking = userRankingList.Where(x => x.UserID == new Guid(userId)).Single();
+            model.xRanking = userRanking.RankingNum;
+            model.xScore = userRanking.Score;
+            var userLessRanking = userRankingList.Where(x => x.Score > model.xScore)
+                .OrderByDescending(o => o.Score).FirstOrDefault();
+            if (userLessRanking != null)
+            {
+                model.xLessRanking = userLessRanking.RankingNum;
+                model.xLessScore = userLessRanking.Score;
+            }
+            var userPlusRanking = userRankingList.Where(x => x.Score < model.xScore)
+                .OrderByDescending(o => o.Score).FirstOrDefault();
+            if (userPlusRanking!=null)
+            {
+                model.xPlusRanking = userPlusRanking.RankingNum;
+                model.xPlusScore = userPlusRanking.Score;
+            }
+            return Ok(model);
+
+        }
         /// <summary>
         /// 获取时间倒计时区间
         /// </summary>

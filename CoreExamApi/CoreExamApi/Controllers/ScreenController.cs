@@ -75,11 +75,11 @@ namespace CoreExamApi.Controllers
                 model.ProblemID = detail.ID;
                 model.ProblemName = detail.ProblemName;
                 model.Answer = detail.Answer;
-                var problemCount = await _examContext.UserProblemScores
+                model.SubmitCount = await _examContext.UserProblemScores
                     .Where(x => x.ProblemID == detail.ID && x.SubmitAnswer != null).CountAsync();
-                var rightCount = await _examContext.UserProblemScores
+                model.RightCount = await _examContext.UserProblemScores
                     .Where(x => x.ProblemID == detail.ID && x.SubmitAnswer == detail.Answer).CountAsync();
-                model.Accuracy = problemCount + "/" + rightCount;
+                model.Accuracy = model.RightCount + "/" + model.SubmitCount;
                 list.Add(model);
             }
             return Ok(list);
@@ -108,11 +108,11 @@ namespace CoreExamApi.Controllers
                     .Select(s => s.User.OrderNumber).ToArrayAsync();
                 if (problem.ProblemType != (int)eProblemType.争分夺秒)
                 {
-                    var problemCount = await _examContext.UserProblemScores
+                    model.SubmitCount = await _examContext.UserProblemScores
                     .Where(x => x.ProblemID == problem.ID && x.SubmitAnswer != null).CountAsync();
-                    var rightCount = await _examContext.UserProblemScores
+                    model.RightCount = await _examContext.UserProblemScores
                         .Where(x => x.ProblemID == problem.ID && x.SubmitAnswer == problem.Answer).CountAsync();
-                    model.Accuracy= problemCount + "/" + rightCount;
+                    model.Accuracy= model.RightCount + "/" + model.SubmitCount;
                 }
             }
             return Ok(model);
@@ -157,8 +157,12 @@ namespace CoreExamApi.Controllers
             {
                 model.ProblemName = problem.ProblemName;
                 model.Answer = problem.Answer;
-                model.NumberArr = await _examContext.UserProblemScores
+                model.AllNumberArr = await _examContext.Users
+                    .Where(x=>x.UserName!="admin").OrderBy(o => o.OrderNumber)
+                    .Select(s => s.OrderNumber).ToArrayAsync();
+                model.NumberArr = await _examContext.UserProblemScores.Include(c=>c.User)
                     .Where(x => x.ProblemID == problem.ID && x.SubmitAnswer == problem.Answer)
+                    .OrderBy(o=>o.User.OrderNumber)
                     .Select(s => s.User.OrderNumber).ToArrayAsync();
                 if (problem.ProblemType != (int)eProblemType.争分夺秒)
                 {

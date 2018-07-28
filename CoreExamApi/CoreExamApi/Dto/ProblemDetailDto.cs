@@ -25,6 +25,16 @@ namespace CoreExamApi.Dto
         public string Answer { get; set; }
 
         /// <summary>
+        /// 正确的数量
+        /// </summary>
+        public int RightCount { get; set; }
+
+        /// <summary>
+        /// 提交的数量
+        /// </summary>
+        public int SubmitCount { get; set; }
+
+        /// <summary>
         /// 准确率
         /// </summary>
         public string Accuracy { get; set; }

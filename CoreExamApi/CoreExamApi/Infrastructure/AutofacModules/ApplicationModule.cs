@@ -21,7 +21,6 @@ namespace CoreExamApi.Infrastructure.AutofacModules
             builder.Register(c => new ExamService(QueriesConnectionString))
                 .As<IExamService>()
                 .InstancePerLifetimeScope();
-
         }
     }
 }

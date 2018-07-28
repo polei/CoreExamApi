@@ -28,6 +28,11 @@ namespace CoreExamApi.Controllers
             _examContext = examContext;
         }
 
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]

@@ -26,6 +26,11 @@ namespace CoreExamApi.Dto
         public int[] NumberArr { get; set; }
 
         /// <summary>
+        /// 所有选手的编号
+        /// </summary>
+        public int[] AllNumberArr { get; set; }
+
+        /// <summary>
         /// 通过人数（晋级人数）
         /// </summary>
         public int PassUserCount { get; set; }
