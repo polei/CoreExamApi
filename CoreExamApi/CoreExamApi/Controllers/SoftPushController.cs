@@ -53,17 +53,25 @@ namespace CoreExamApi.Controllers
             var number = questionNumber - 1;
             if (number < 1)
             {
-                await _hubContext.Clients.All.SendAsync("ReceiveMessageFromGroup");
+                await _hubContext.Clients.All.SendAsync("ReceiveMessageFromGroup", questionNumber);
             }
             else
             {
-                List<string> groups = await _examContext.UserProblemScores
-                .Where(x => x.ProblemType == (int)eProblemType.一比高下 
-                && x.QuestionNumber == number && x.Score > 0)
-                .Select(s => s.UserID.ToString().ToLower()).ToListAsync();
+                var userScoreList= await _examContext.UserProblemScores
+                .Where(x => x.ProblemType == (int)eProblemType.一比高下
+                && x.QuestionNumber == number).ToListAsync();
+                List<string> groupsPass = userScoreList.Where(x => x.Score > 0)
+                    .Select(s => s.UserID.ToString().ToLower()).ToList();
 
-                await _hubContext.Clients.Groups(groups)
+                await _hubContext.Clients.Groups(groupsPass)
                 .SendAsync("ReceiveMessageFromGroup", questionNumber);
+
+
+                List<string> groupsFailure = userScoreList
+                    .Where(x => x.Score < 1 || x.Score == null)
+                    .Select(s => s.UserID.ToString().ToLower()).ToList();
+                await _hubContext.Clients.Groups(groupsFailure)
+                .SendAsync("ReceiveMessageFromGroupFailure", questionNumber);
             }
             //List<string> groups = new List<string>() { "567E2936-5D8A-40B0-BABA-74F4BD8CF456" };
             //var group = "567E2936-5D8A-40B0-BABA-74F4BD8CF456";
@@ -80,7 +88,7 @@ namespace CoreExamApi.Controllers
         [Route("all/type3/users")]
         public async Task SendMessageForType3(int questionNumber)
         {
-            await AddOrUpdateProcessAsync((int)eProblemType.争分夺秒, 0, questionNumber);
+            await AddOrUpdateProcessAsync((int)eProblemType.狭路相逢, 0, questionNumber);
             await _hubContext.Clients.All.SendAsync("ReceiveMessageForType3", questionNumber);
         }
 

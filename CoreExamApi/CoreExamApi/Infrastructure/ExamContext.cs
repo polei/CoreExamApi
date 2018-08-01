@@ -20,6 +20,7 @@ namespace CoreExamApi.Infrastructure
         public DbSet<User> Users { get; set; }
         public DbSet<Problem> Problems { get; set; }
         public DbSet<UserExamScore> UserExamScores { get; set; }
+        public DbSet<UserExamPartner> UserExamPartners { get; set; }
         public DbSet<UserProblemScore> UserProblemScores { get; set; }
 
         //public class ExamContextDesignFactory : IDesignTimeDbContextFactory<ExamContext>

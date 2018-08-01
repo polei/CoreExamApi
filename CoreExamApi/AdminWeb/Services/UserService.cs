@@ -63,8 +63,8 @@ namespace AdminWeb.Services
             {
                 connection.Open();
                 var result = await connection.QueryAsync<User>(@"with t as
-                        (select *, ROW_NUMBER() OVER(Order by UserName ) AS rownum from [dbo].[User] where UserName!='admin')
-                        select * from t where t.rownum between (@page-1)*@rows and @page*@rows",new { page,rows });
+                        (select *, ROW_NUMBER() OVER(Order by OrderNumber) AS rownum from [dbo].[User] where UserName!='admin')
+                        select * from t where t.rownum between (@page-1)*@rows+1 and @page*@rows", new { page,rows });
 
                 return result.ToList();
             }

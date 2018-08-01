@@ -45,13 +45,27 @@ namespace CoreExamApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("subProblems")]
+        [ProducesResponseType(typeof(ProblemSubDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProblemBySubType(int subType = 1)
         {
-            var problems = await _examContext.Problems
+            ProblemSubDto model = new ProblemSubDto();
+            model.Problems = await _examContext.Problems
                 .Where(x => x.ProblemType == (int)eProblemType.争分夺秒
-                && x.ProblemSubType == subType)
-                .Select(s => new { ProblemName = s.ProblemName }).ToListAsync();
-            return Ok(problems);
+                && x.ProblemSubType == subType).OrderBy(o=>o.QuestionNumber)
+                .Select(s => new ProName{ ProblemName = s.ProblemName }).ToListAsync();
+            var process = await _examContext.ExamProcesss
+                .Where(x => x.ModuleType == (int)eProblemType.争分夺秒 && x.SubType == subType)
+                .FirstOrDefaultAsync();
+            if (process != null)
+            {
+                var baseSetting = await _examContext.BaseExamSettings.SingleOrDefaultAsync();
+                TimeSpan tSpan = DateTime.Now - process.AddTime;
+                if (tSpan.Seconds > 0 && baseSetting.TypeTimeSpan1 > tSpan.Seconds)
+                {
+                    model.Countdown = baseSetting.TypeTimeSpan1 - tSpan.Seconds;
+                }
+            }
+            return Ok(model);
         }
 
         /// <summary>
@@ -127,19 +141,73 @@ namespace CoreExamApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("problemDetail")]
+        [ProducesResponseType(typeof(ProblemSingleWithCountDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetProblemDetail(int problemType = 2, int questionNumber = 1)
         {
-            var problems = await _examContext.Problems
+            ProblemSingleWithCountDto model = new ProblemSingleWithCountDto();
+            model.Problem = await _examContext.Problems
                 .Where(x => x.ProblemType == problemType
                 && x.QuestionNumber == questionNumber)
-                .Select(s => new
+                .Select(s => new ProblemSingle
                 {
                     ProblemID=s.ID,
                     ProblemName =s.ProblemName,
                     ProblemFeatures=s.ProblemFeatures
-                }).ToListAsync();
-            return Ok(problems);
+                }).SingleOrDefaultAsync();
+            if(problemType== (int)eProblemType.一比高下)
+            {
+                if (questionNumber == 1)
+                {
+                    model.PartUserCount = await _examContext.UserProblemScores
+                        .Where(x => x.ProblemType == problemType&& x.QuestionNumber == questionNumber)
+                        .CountAsync();
+                }
+                else
+                {
+                    model.PartUserCount = await _examContext.UserProblemScores
+                        .Where(x => x.ProblemType == problemType 
+                        && x.QuestionNumber == questionNumber-1&&x.Score>0)
+                        .CountAsync();
+                }
+                
+            }
+            if(problemType == (int)eProblemType.狭路相逢)
+            {
+                model.PartUserCount = await _examContext.UserExamPartners
+                    .Where(x => x.QuestionNumber == questionNumber).CountAsync();
+            }
+            var process = await _examContext.ExamProcesss
+                .Where(x => x.ModuleType == problemType && x.Number == questionNumber)
+                .FirstOrDefaultAsync();
+            if (process != null)
+            {
+                var baseSetting = await _examContext.BaseExamSettings.SingleOrDefaultAsync();
+                var tTimeSpan = problemType == (int)eProblemType.一比高下
+                    ? baseSetting.TypeTimeSpan2 : baseSetting.TypeTimeSpan3;
+                TimeSpan tSpan = DateTime.Now - process.AddTime;
+                if (tSpan.Seconds > 0 && tTimeSpan > tSpan.Seconds)
+                {
+                    model.Countdown = tTimeSpan - tSpan.Seconds;
+                }
+            }
+            return Ok(model);
         }
+
+        /// <summary>
+        /// 获取一道题目答对的人数
+        /// </summary>
+        /// <param name="problemID">问题的ID</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("problem/right/count")]
+        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetRightProblemCount(Guid problemID)
+        {
+            var rightCount = await _examContext.UserProblemScores
+                .Where(x => x.ProblemID == problemID&&x.Score>0).CountAsync();
+            return Ok(rightCount);
+        }
+
 
         /// <summary>
         /// 单个问题晋级人数统计

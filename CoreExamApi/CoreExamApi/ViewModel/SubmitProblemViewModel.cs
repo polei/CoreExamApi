@@ -8,7 +8,7 @@ namespace CoreExamApi.ViewModel
 {
     public class SubmitProblemViewModel
     {
-        [Required(ErrorMessage = "答案不能为空。")]
+        //[Required(ErrorMessage = "答案不能为空。")]
         public string submitAnswer { get; set; }
 
         [Required(ErrorMessage = "问题Guid不能为空。")]

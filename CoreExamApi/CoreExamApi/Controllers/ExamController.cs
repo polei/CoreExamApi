@@ -38,20 +38,19 @@ namespace CoreExamApi.Controllers
         }
 
         /// <summary>
-        /// 获取考试问题
+        /// 获取考试问题1、争分夺秒
         /// </summary>
-        /// <param name="problemType"> 题目类型（1、争分夺秒 2、一比高下 3、狭路相逢）</param>
         /// <param name="subType">争分夺秒中为5题一组，其他不区分</param>
         /// <returns></returns>
         [HttpGet]
         [Route("problems")]
-        [ProducesResponseType(typeof(List<ExamProblemDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetExamProblemList(int problemType = 1, int subType = 0)
+        [ProducesResponseType(typeof(ExamProblemWithTimeDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetExamProblemList(int subType = 0)
         {
             var userId = _identityService.GetUserIdentity();
             var userExamProblemList = await _examContext.UserProblemScores
                 .Where(x => x.UserID == new Guid(userId) 
-                && x.ProblemType == problemType 
+                && x.ProblemType == (int)eProblemType.争分夺秒 
                 && x.ProblemSubType == subType)
                 .OrderBy(o => o.QuestionNumber)
                 .Select(a => new ExamProblemDto
@@ -62,8 +61,86 @@ namespace CoreExamApi.Controllers
                     ProblemFeatures = a.ProblemFeatures,
                     QuestionNumber = a.QuestionNumber
                 }).ToListAsync();
-            return Ok(userExamProblemList);
+            ExamProblemWithTimeDto model = new ExamProblemWithTimeDto();
+            model.ProblemList = userExamProblemList;
+            var process = await _examContext.ExamProcesss
+                .Where(x=>x.ModuleType== (int)eProblemType.争分夺秒 && x.SubType == subType)
+                .FirstOrDefaultAsync();
+            if (process!=null)
+            {
+                var baseSetting = await _examContext.BaseExamSettings.SingleOrDefaultAsync();
+                TimeSpan tSpan = DateTime.Now - process.AddTime;
+                if (tSpan.Seconds > 0&& baseSetting.TypeTimeSpan1 > tSpan.Seconds)
+                {
+                    model.Countdown = baseSetting.TypeTimeSpan1 - tSpan.Seconds;
+                }
+            }
+            
+            return Ok(model);
         }
+
+        /// <summary>
+        /// 获取考试问题（2、一比高下 3、狭路相逢）
+        /// </summary>
+        /// <param name="problemType">题目类型(2、一比高下 3、狭路相逢)</param>
+        /// <param name="questionNumber">问题编号</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("problem")]
+        [ProducesResponseType(typeof(ExamProblemDto2), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetExamProblem(int problemType = 2,int questionNumber=1)
+        {
+            var userId = _identityService.GetUserIdentity();
+            var userExamProblem = await _examContext.UserProblemScores
+                .Where(x => x.UserID == new Guid(userId)
+                && x.ProblemType == problemType
+                && x.QuestionNumber == questionNumber).SingleOrDefaultAsync();
+            ExamProblemDto2 model = new ExamProblemDto2();
+            if (userExamProblem!=null)
+            {
+                model.ID = userExamProblem.ID;
+                model.ProblemName = userExamProblem.ProblemName;
+                model.ProblemFeatures = userExamProblem.ProblemFeatures;
+                model.SubmitAnswer = userExamProblem.SubmitAnswer;
+                model.QuestionNumber = userExamProblem.QuestionNumber;
+                var process = await _examContext.ExamProcesss
+                .Where(x => x.ModuleType == problemType && x.Number == questionNumber)
+                .FirstOrDefaultAsync();
+                if (process != null)
+                {
+                    var baseSetting = await _examContext.BaseExamSettings.SingleOrDefaultAsync();
+                    var tTimeSpan = problemType == (int)eProblemType.一比高下
+                        ? baseSetting.TypeTimeSpan2 : baseSetting.TypeTimeSpan3;
+                    TimeSpan tSpan = DateTime.Now - process.AddTime;
+                    if (tSpan.Seconds > 0 && tTimeSpan > tSpan.Seconds)
+                    {
+                        model.Countdown = tTimeSpan - tSpan.Seconds;
+                    }
+                }
+            }
+           
+            return Ok(model);
+        }
+
+        /// <summary>
+        /// 获取每道题目的结果（一比高下？）
+        /// </summary>
+        /// <param name="userExamProblemID">用户考题的ID</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("problem/result")]
+        [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetExamProblemResult(Guid userExamProblemID)
+        {
+            bool result = false;
+            var userExamProblem = await _examContext.UserProblemScores.FindAsync(userExamProblemID);
+            if (userExamProblem != null)
+            {
+                result = userExamProblem.Score > 0;
+            }
+            return Ok(result);
+        }
+
 
         /// <summary>
         /// 提交一道题目
@@ -132,6 +209,28 @@ namespace CoreExamApi.Controllers
             return Ok(json);
         }
 
+        /// <summary>
+        /// 狭路相逢选择是否参与
+        /// </summary>
+        /// <param name="questionNumber">问题编号</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("partner")]
+        [ProducesResponseType(typeof(mJsonResult), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> SaveUserExamPartner(int questionNumber=1)
+        {
+            var json = new mJsonResult();
+            var userId = _identityService.GetUserIdentity();
+            UserExamPartner model = new UserExamPartner
+            {
+                QuestionNumber = questionNumber,
+                UserID = new Guid(userId),
+                AddTime = DateTime.Now
+            };
+            _examContext.UserExamPartners.Add(model);
+            json.success= await _examContext.SaveChangesAsync()>0;
+            return Ok(json);
+        }
         /// <summary>
         /// 获取每个模块结束的分数信息
         /// </summary>
@@ -231,6 +330,19 @@ namespace CoreExamApi.Controllers
             var examSetting = await _examContext.BaseExamSettings.SingleAsync();
 
             return Ok(examSetting);
+        }
+
+        /// <summary>
+        /// 获取当前流程进度
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("process")]
+        [ProducesResponseType(typeof(ExamProcess), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetExamProcess()
+        {
+            var process = await _examContext.ExamProcesss.FirstOrDefaultAsync();
+            return Ok(process);
         }
     }
 }

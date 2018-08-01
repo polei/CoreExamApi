@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -22,7 +23,8 @@ namespace CoreExamApi.Controllers
     {
         private readonly ExamContext _examContext;
         private readonly ExamingSettings _settings;
-        public AccountController(ExamContext examContext, IOptionsSnapshot<ExamingSettings> settings)
+        public AccountController(ExamContext examContext
+            , IOptionsSnapshot<ExamingSettings> settings)
         {
             _settings = settings.Value;
             _examContext = examContext;
@@ -70,5 +72,13 @@ namespace CoreExamApi.Controllers
 
             return Ok(json);
         }
+
+        //[HttpGet]
+        //[Route("test/logger")]
+        //public IActionResult TestLogger()
+        //{
+        //    _logger.LogInformation("添加666");
+        //    return Ok();
+        //}
     }
 }

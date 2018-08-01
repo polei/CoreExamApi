@@ -81,8 +81,8 @@ E:\netcore\CoreApi\CoreExamApi\AdminWeb\bin\zh-Hans\System.Web.Webpages.Deployme
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\bin\zh-Hans\System.Web.Webpages.Razor.resources.dll
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\bin\zh-Hans\System.Web.Helpers.resources.dll
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\bin\zh-Hans\System.Web.Mvc.resources.dll
-E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.csprojAssemblyReference.cache
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.csproj.CoreCompileInputs.cache
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.csproj.CopyComplete
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.dll
 E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.pdb
+E:\netcore\CoreApi\CoreExamApi\AdminWeb\obj\Release\AdminWeb.csprojAssemblyReference.cache

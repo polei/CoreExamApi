@@ -47,7 +47,7 @@ namespace AdminWeb.Services
                     sql.Append(" and ProblemType=@problemType");
                     Params.Add("@problemType", problemType.Value);
                 }
-                sql.Append(")select * from t where t.rownum between (@page-1)*@rows and @page*@rows");
+                sql.Append(")select * from t where t.rownum between (@page-1)*@rows+1 and @page*@rows");
                 Params.Add("@page", page);
                 Params.Add("@rows", rows);
 
@@ -92,10 +92,10 @@ namespace AdminWeb.Services
                         where 1=1");
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    sql.Append("and u.TrueName like @searchValue");
+                    sql.Append(" and u.TrueName like @searchValue");
                     Params.Add("@searchValue", "%" + searchValue + "%");
                 }
-                sql.Append(" and t.rownum between (@page-1)*@rows and @page*@rows");
+                sql.Append(" and t.rownum between (@page-1)*@rows+1 and @page*@rows");
                 Params.Add("@page", page);
                 Params.Add("@rows", rows);
                 connection.Open();
@@ -105,24 +105,39 @@ namespace AdminWeb.Services
             }
         }
 
-        public async Task<int> GetScoreCount()
+        public async Task<int> GetScoreCount(string searchValue)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                DynamicParameters Params = new DynamicParameters();
+                StringBuilder sql = new StringBuilder(@"
+                        select count(0) from [dbo].[UserExamScore] t");
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    sql.Append(@"inner join [dbo].[User] u on t.UserID=u.ID
+                        where 1=1 and u.TrueName like @searchValue");
+                    Params.Add("@searchValue", "%" + searchValue + "%");
+                }
                 connection.Open();
-                var result = await connection.QueryFirstAsync<int>(@"
-                            select count(0) from [dbo].[UserExamScore]");
+                var result = await connection.QueryFirstAsync<int>(sql.ToString(), Params);
                 return result;
             }
         }
 
-        public async Task<int> GetProblemCount()
+        public async Task<int> GetProblemCount(int? problemType)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                DynamicParameters Params = new DynamicParameters();
+                StringBuilder sql = new StringBuilder(@"select count(0) from [dbo].[Problem]
+                        where 1=1");
+                if (problemType.HasValue)
+                {
+                    sql.Append(" and ProblemType=@problemType");
+                    Params.Add("@problemType", problemType.Value);
+                }
                 connection.Open();
-                var result = await connection.QueryFirstAsync<int>(@"
-                            select count(0) from [dbo].[Problem]");
+                var result = await connection.QueryFirstAsync<int>(sql.ToString(), Params);
                 return result;
             }
         }
@@ -135,7 +150,8 @@ namespace AdminWeb.Services
                 List<UserExamScore> userExamList = new List<UserExamScore>();
                 connection.Open();
                 var users =await connection.QueryAsync<User>(@"
-                            select * from [dbo].[User] where UserName!='admin'");
+                            select * from [dbo].[User] where UserName!='admin' 
+                                and ID not in(select distinct UserID from [dbo].[UserExamScore])");
                 var problems = await connection.QueryAsync<Problem>(@"
                             select * from [dbo].[Problem]");
                 

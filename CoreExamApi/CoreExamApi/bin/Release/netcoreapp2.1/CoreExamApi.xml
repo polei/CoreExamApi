@@ -1,0 +1,667 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreExamApi</name>
+    </assembly>
+    <members>
+        <member name="M:CoreExamApi.Controllers.AccountController.Login(CoreExamApi.ViewModel.LoginViewModel)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CoreExamApi.Controllers.ExamController">
+            <summary>
+            考试问题
+            </summary>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetExamProblemList(System.Int32)">
+            <summary>
+            获取考试问题1、争分夺秒
+            </summary>
+            <param name="subType">争分夺秒中为5题一组，其他不区分</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetExamProblem(System.Int32,System.Int32)">
+            <summary>
+            获取考试问题（2、一比高下 3、狭路相逢）
+            </summary>
+            <param name="problemType">题目类型(2、一比高下 3、狭路相逢)</param>
+            <param name="questionNumber">问题编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetExamProblemResult(System.Guid)">
+            <summary>
+            获取每道题目的结果（一比高下？）
+            </summary>
+            <param name="userExamProblemID">用户考题的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveOneProblem(CoreExamApi.ViewModel.SubmitProblemViewModel)">
+            <summary>
+            提交一道题目
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveUserExamPartner(System.Int32)">
+            <summary>
+            狭路相逢选择是否参与
+            </summary>
+            <param name="questionNumber">问题编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetModuleDetail(System.Int32)">
+            <summary>
+            获取每个模块结束的分数信息
+            </summary>
+            <param name="type">模块e</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetUserScores">
+            <summary>
+            获取用户的考试结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetUserRanking">
+            <summary>
+            获取排名（手机顶部）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetTimeSpans">
+            <summary>
+            获取时间倒计时区间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetExamProcess">
+            <summary>
+            获取当前流程进度
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CoreExamApi.Controllers.ScreenController">
+            <summary>
+            大屏幕api
+            </summary>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.#ctor(CoreExamApi.Infrastructure.ExamContext,CoreExamApi.Infrastructure.Services.IIdentityService,CoreExamApi.Infrastructure.Services.IExamService)">
+            <summary>
+            大屏幕
+            </summary>
+            <param name="context"></param>
+            <param name="identityService"></param>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetProblemBySubType(System.Int32)">
+            <summary>
+            争分夺秒一组问题
+            </summary>
+            <param name="subType">组（int）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetSubProblemDetail(System.Int32)">
+            <summary>
+            争分夺秒答题详情
+            </summary>
+            <param name="subType">组（int）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetSingleProblemDetail(System.Guid)">
+            <summary>
+            获取单题答题详情
+            (包含争分夺秒，一比高下，狭路相逢)
+            </summary>
+            <param name="problemID">问题的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetProblemDetail(System.Int32,System.Int32)">
+            <summary>
+            一道题目（一比高下和狭路相逢）
+            </summary>
+            <param name="problemType">问题类型（2、一比高下 3、狭路相逢）</param>
+            <param name="questionNumber">问题编号（int）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetRightProblemCount(System.Guid)">
+            <summary>
+            获取一道题目答对的人数
+            </summary>
+            <param name="problemID">问题的ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetUserProblemCount(System.Guid)">
+            <summary>
+            单个问题晋级人数统计
+            </summary>
+            <param name="problemID">问题统计</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetUserRankingList(System.Nullable{System.Int32})">
+            <summary>
+            用户排名
+            </summary>
+            <param name="problemType">类型（1、争分夺秒 2、一比高下 3、狭路相逢）不传获取总分排名</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.SoftPushController.SendMessage(System.Int32)">
+            <summary>
+            争分夺秒
+            </summary>
+            <param name="subType">组（int）</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.SoftPushController.SendMessageForGroups(System.Int32)">
+            <summary>
+            一比高下推送()
+            </summary>
+            <param name="questionNumber">题号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.SoftPushController.SendMessageForType3(System.Int32)">
+            <summary>
+            狭路相逢
+            </summary>
+            <param name="questionNumber">题号</param>
+            <returns></returns>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemDto.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemDto.QuestionNumber">
+            <summary>
+            每组的题号
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.ExamProblemWithTimeDto">
+            <summary>
+            争分夺秒每一组的问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemWithTimeDto.ProblemList">
+            <summary>
+            每一组里面的问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemWithTimeDto.Countdown">
+            <summary>
+            倒计时
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.ExamProblemDto2">
+            <summary>
+            一比高下和狭路相逢问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemDto2.Countdown">
+            <summary>
+            倒计时
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ModuleDetailDto.tAnswerCount">
+            <summary>
+            答对数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ModuleDetailDto.wAnswerCount">
+            <summary>
+            答错数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ModuleDetailDto.mScore">
+            <summary>
+            模块分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ModuleDetailDto.allScore">
+            <summary>
+            总分
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ModuleDetailDto.ranking">
+            <summary>
+            排名
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.ProblemDetailDto">
+            <summary>
+            争分夺秒答题详情
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.ProblemID">
+            <summary>
+            问题ID
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.ProblemName">
+            <summary>
+            问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.RightCount">
+            <summary>
+            正确的数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.SubmitCount">
+            <summary>
+            提交的数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemDetailDto.Accuracy">
+            <summary>
+            准确率
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.ProblemSubDto">
+            <summary>
+            大屏幕问题plus倒计时
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSubDto.Problems">
+            <summary>
+            一组问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSubDto.Countdown">
+            <summary>
+            倒计时
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.ProblemSingleWithCountDto">
+            <summary>
+            单个问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingleWithCountDto.Problem">
+            <summary>
+            一个问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingleWithCountDto.Countdown">
+            <summary>
+            倒计时
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingleWithCountDto.PartUserCount">
+            <summary>
+            参与人数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingle.ProblemID">
+            <summary>
+            问题ID
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingle.ProblemName">
+            <summary>
+            问题名称
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ProblemSingle.ProblemFeatures">
+            <summary>
+            问题选项
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.ProblemName">
+            <summary>
+            问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.ProblemFeatures">
+            <summary>
+            题目选项
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.NumberArr">
+            <summary>
+            答对选手的编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.RightCount">
+            <summary>
+            正确的数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.SubmitCount">
+            <summary>
+            提交的数量
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleProblemDetailDto.Accuracy">
+            <summary>
+            准确率
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.SingleUserRankingDto">
+            <summary>
+            当前用户排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xRanking">
+            <summary>
+            当前排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xScore">
+            <summary>
+            当前分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xPlusRanking">
+            <summary>
+            比当前高的排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xPlusScore">
+            <summary>
+            比当前高的分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xLessRanking">
+            <summary>
+            比当前低的排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.SingleUserRankingDto.xLessScore">
+            <summary>
+            比当前低的分数
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.UserProblemCountDto">
+            <summary>
+            单个问题晋级人数统计
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserProblemCountDto.ProblemName">
+            <summary>
+            问题
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserProblemCountDto.Answer">
+            <summary>
+            答案
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserProblemCountDto.NumberArr">
+            <summary>
+            答对选手的编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserProblemCountDto.AllNumberArr">
+            <summary>
+            所有选手的编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserProblemCountDto.PassUserCount">
+            <summary>
+            通过人数（晋级人数）
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.UserRankingDto">
+            <summary>
+            用户排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserRankingDto.RankingNum">
+            <summary>
+            排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserRankingDto.TrueName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserRankingDto.CompanyName">
+            <summary>
+            单位名称
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserRankingDto.Score">
+            <summary>
+            得分
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Dto.UserScoreDto">
+            <summary>
+            用户考试结果
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.TrueName">
+            <summary>
+            姓名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.TotalScores">
+            <summary>
+            总分
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.TypeScores1">
+            <summary>
+            争分夺秒分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.TypeScores2">
+            <summary>
+            一比高下分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.TypeScores3">
+            <summary>
+            狭路相逢分数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserScoreDto.ranking">
+            <summary>
+            排名
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Infrastructure.Enum.eProblemType">
+            <summary>
+            模块类型
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Infrastructure.Exceptions.ExamDomainException">
+            <summary>
+            Exception type for app exceptions
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Infrastructure.Hubs.NotificationsHub">
+            <summary>
+            每个用户作为一个组？
+            </summary>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.ExamService.GetUserRankingList(System.Nullable{System.Int32})">
+            <summary>
+            获取用户排名
+            </summary>
+            <param name="problemType">哪种类型的排名</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.ExamService.GetUserRankingList">
+            <summary>
+            获取排名（手机端使用）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.IExamService.GetUserRankingList(System.Nullable{System.Int32})">
+            <summary>
+            获取用户排名
+            </summary>
+            <param name="problemType">哪种类型的排名</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.IExamService.GetUserRankingList">
+            <summary>
+            获取排名（手机端使用）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CoreExamApi.Models.BaseExamSetting">
+            <summary>
+            基本设置（？）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.BaseExamSetting.TypeTimeSpan1">
+            <summary>
+            一比高下每组时间
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.BaseExamSetting.TypeTimeSpan2">
+            <summary>
+            争分夺秒每题时间
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.BaseExamSetting.TypeTimeSpan3">
+            <summary>
+            狭路相逢每题时间
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.BaseExamSetting.PartTimeSpan">
+            <summary>
+            参与时间
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Models.ExamProcess">
+            <summary>
+            当前考试流程
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.ExamProcess.ModuleType">
+            <summary>
+            当前流程
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.ExamProcess.SubType">
+            <summary>
+            小组
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.ExamProcess.Number">
+            <summary>
+            当前题数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.ExamProcess.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Models.Problem">
+            <summary>
+            问题表
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.Problem.ProblemType">
+            <summary>
+            题目类型（1、争分夺秒 2、一比高下 3、狭路相逢）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.Problem.ProblemSubType">
+            <summary>
+            争分夺秒中为5题一组，其他不区分
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.Problem.QuestionNumber">
+            <summary>
+            每组的题号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.User.UserName">
+            <summary>
+            登录为手机号码，密码也为手机号码
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Models.UserExamPartner">
+            <summary>
+            记录狭路相逢参与的人
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserExamPartner.QuestionNumber">
+            <summary>
+            狭路相逢问题编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserExamPartner.UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserExamPartner.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Models.UserProblemScore">
+            <summary>
+            考生每道题的成绩
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserProblemScore.ProblemID">
+            <summary>
+            预先导入？
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserProblemScore.ProblemType">
+            <summary>
+            题目类型（1、争分夺秒 2、一比高下 3、狭路相逢）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserProblemScore.ProblemSubType">
+            <summary>
+            争分夺秒中为5题一组，其他不区分
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserProblemScore.QuestionNumber">
+            <summary>
+            每组的题号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.LoginViewModel.userName">
+            <summary>
+            手机号码？
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.LoginViewModel.password">
+            <summary>
+            密码手机号码？
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.ViewModel.UserRankingModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.UserRankingModel.RankingNum">
+            <summary>
+            排名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.UserRankingModel.UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.UserRankingModel.Score">
+            <summary>
+            得分
+            </summary>
+        </member>
+    </members>
+</doc>

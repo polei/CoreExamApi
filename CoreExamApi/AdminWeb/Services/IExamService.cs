@@ -15,10 +15,10 @@ namespace AdminWeb.Services
 
         Task<int> GetScoreType(int? problemType);
 
-        Task<int> GetProblemCount();
+        Task<int> GetProblemCount(int? problemType);
 
         Task<List<UserScore>> GetScoreList(int page, int rows, string searchValue);
-        Task<int> GetScoreCount();
+        Task<int> GetScoreCount(string SearchValue);
 
         Task<bool> Issue();
 

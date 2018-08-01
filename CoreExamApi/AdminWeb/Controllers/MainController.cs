@@ -70,7 +70,7 @@ namespace AdminWeb.Controllers
             try
             {
                 var problemList = await _examService.GetProblemList(page, rows, problemType);
-                var json = new { total = await _examService.GetProblemCount(), rows = problemList };
+                var json = new { total = await _examService.GetProblemCount(problemType), rows = problemList };
                 return Json(json, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -92,7 +92,7 @@ namespace AdminWeb.Controllers
             try
             {
                 var userScoreList = await _examService.GetScoreList(page, rows, SearchValue);
-                var json = new { total = await _examService.GetScoreCount(), rows = userScoreList };
+                var json = new { total = await _examService.GetScoreCount(SearchValue), rows = userScoreList };
                 return Json(json, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
