@@ -43,7 +43,7 @@ namespace CoreExamApi.Dto
         /// <summary>
         /// 参与人数
         /// </summary>
-        public int PartUserCount { get; set; }
+        //public int PartUserCount { get; set; }
     }
 
     public class ProblemSingle

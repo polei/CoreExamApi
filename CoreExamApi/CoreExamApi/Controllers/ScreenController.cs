@@ -134,54 +134,9 @@ namespace CoreExamApi.Controllers
                     }
                     else
                     {
-                        
                         model.SubmitCount = await _examContext.UserProblemScores
-                            .Where(x => x.ProblemType == (int)eProblemType.一比高下
-                            && x.QuestionNumber == problem.QuestionNumber - 1 && x.Score > 0)
-                            .CountAsync();
-                        #region 操作上一题答案为null的
-
-                        int number = problem.QuestionNumber - 1;
-                        var userExamScoreList = await _examContext.UserProblemScores
-                                .Where(x => x.ProblemType == (int)eProblemType.一比高下
-                                    && x.QuestionNumber < number).ToListAsync();
-                        var specialUserList = _examContext.UserProblemScores
-                            .Where(x => x.ProblemType == (int)eProblemType.一比高下
-                                && x.QuestionNumber == number && x.Score == null).Select(s => s.UserID);
-                        foreach (var userID in specialUserList)
-                        {
-
-                            var userProScore = userExamScoreList.Where(x => x.UserID == userID && x.Score >= 0)
-                                .OrderByDescending(o => o.QuestionNumber).FirstOrDefault();
-                            if (userProScore is null)
-                            {
-                                int[] arr = { 1, 3, 5, 7, 9 };
-                                if (arr.IndexOf(problem.QuestionNumber) >= 0)//存在
-                                {
-                                    model.SubmitCount++;
-                                }
-                            }
-                            else
-                            {
-                                if ((problem.QuestionNumber - userProScore.QuestionNumber) % 2 == 0)
-                                {
-                                    if (userProScore.Score < 1)//正确的时候
-                                    {
-                                        model.SubmitCount++;
-                                    }
-
-                                }
-                                else
-                                {
-                                    if (userProScore.Score > 0)
-                                    {
-                                        model.SubmitCount++;
-                                    }
-
-                                }
-                            }
-                        }
-                        #endregion
+                           .Where(x => x.ProblemID == problem.ID && (x.ExaminationDate.HasValue||x.IsSubmitOver>0))
+                           .CountAsync();
                     }
                     model.RightCount = await _examContext.UserProblemScores
                        .Where(x => x.ProblemID == problem.ID && x.SubmitAnswer == problem.Answer).CountAsync();
@@ -227,72 +182,6 @@ namespace CoreExamApi.Controllers
                     ProblemName = s.ProblemName,
                     ProblemFeatures = s.ProblemFeatures
                 }).SingleOrDefaultAsync();
-            if (problemType == (int)eProblemType.一比高下)
-            {
-                if (questionNumber == 1)
-                {
-                    model.PartUserCount = await _examContext.UserExamScores
-                        .Where(x => x.TotalScores >= 0)
-                        .CountAsync();
-                }
-                else
-                {
-                    model.PartUserCount = await _examContext.UserProblemScores
-                        .Where(x => x.ProblemType == problemType
-                        && x.QuestionNumber == questionNumber - 1 && x.Score > 0)
-                        .CountAsync();
-                    #region 操作上一题答案为null的
-                    int number = questionNumber - 1;
-                    var userExamScoreList = await _examContext.UserProblemScores
-                            .Where(x => x.ProblemType == (int)eProblemType.一比高下
-                                && x.QuestionNumber < number).ToListAsync();
-                    var specialUserList = _examContext.UserProblemScores
-                        .Where(x => x.ProblemType == (int)eProblemType.一比高下
-                            && x.QuestionNumber == number && x.Score == null).Select(s => s.UserID);
-                    foreach (var userID in specialUserList)
-                    {
-
-                        var userProScore = userExamScoreList.Where(x => x.UserID == userID && x.Score >= 0)
-                            .OrderByDescending(o => o.QuestionNumber).FirstOrDefault();
-                        if (userProScore is null)
-                        {
-                            int[] arr = { 1, 3, 5, 7, 9 };
-                            if (arr.IndexOf(questionNumber) >= 0)//存在
-                            {
-                                model.PartUserCount++;
-                            }
-                        }
-                        else
-                        {
-                            if ((questionNumber - userProScore.QuestionNumber) % 2 == 0)
-                            {
-                                if (userProScore.Score < 1)//正确的时候
-                                {
-                                    model.PartUserCount++;
-                                }
-
-                            }
-                            else
-                            {
-                                if (userProScore.Score > 0)
-                                {
-                                    model.PartUserCount++;
-                                }
-
-                            }
-                        }
-                    }
-                    #endregion
-
-                }
-            }
-            if (problemType == (int)eProblemType.狭路相逢)
-            {
-                model.PartUserCount = await _examContext.UserExamPartners
-                    .Where(x => x.QuestionNumber == questionNumber
-                    && x.ChiocePart == (int)eChoicePart.是).Select(x => x.UserID)
-                    .Distinct().CountAsync();
-            }
             var process = _examContext.ExamProcesss
                 .Where(x => x.ModuleType == problemType && x.Number == questionNumber)
                 .FirstOrDefault();
@@ -318,12 +207,43 @@ namespace CoreExamApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("problem/right/count")]
-        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AccuracyDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetRightProblemCount(Guid problemID)
         {
-            var rightCount = await _examContext.UserProblemScores
-                .Where(x => x.ProblemID == problemID && x.Score > 0).CountAsync();
-            return Ok(rightCount);
+            AccuracyDto model = new AccuracyDto();
+            var problem =await _examContext.Problems.FindAsync(problemID);
+            if(problem is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                if (problem.ProblemType == (int)eProblemType.一比高下)
+                {
+                    if (problem.QuestionNumber == 1)
+                    {
+                        model.partUserCount = await _examContext.UserExamScores
+                            .Where(x => x.TotalScores >= 0)
+                            .CountAsync();
+                    }
+                    else
+                    {
+                        model.partUserCount = await _examContext.UserProblemScores
+                            .Where(x => x.ProblemID == problemID&& (x.ExaminationDate.HasValue||x.IsSubmitOver>0))
+                            .CountAsync();
+                    }
+                }
+                if (problem.ProblemType == (int)eProblemType.狭路相逢)
+                {
+                    model.partUserCount = await _examContext.UserExamPartners
+                        .Where(x => x.QuestionNumber == problem.QuestionNumber
+                        && x.ChiocePart == (int)eChoicePart.是).Select(x => x.UserID)
+                        .Distinct().CountAsync();
+                }
+                model.rightCount = await _examContext.UserProblemScores
+               .Where(x => x.ProblemID == problemID && x.Score > 0).CountAsync();
+            }
+            return Ok(model);
         }
 
 
@@ -340,7 +260,11 @@ namespace CoreExamApi.Controllers
         {
             UserProblemCountDto model = new UserProblemCountDto();
             var problem = await _examContext.Problems.FindAsync(problemID);
-            if (problem != null)
+            if (problem is null)
+            {
+                return NotFound();
+            }
+            else
             {
                 model.ProblemName = problem.ProblemName;
                 model.Answer = problem.Answer;
@@ -357,10 +281,6 @@ namespace CoreExamApi.Controllers
                         .Where(x => x.ProblemID == problem.ID
                         && x.SubmitAnswer == problem.Answer).CountAsync();
                 }
-            }
-            else
-            {
-                return NotFound();
             }
             return Ok(model);
         }

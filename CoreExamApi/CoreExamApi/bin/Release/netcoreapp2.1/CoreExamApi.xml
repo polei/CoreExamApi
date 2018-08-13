@@ -59,10 +59,11 @@
             <param name="subType">状态</param>
             <returns></returns>
         </member>
-        <member name="M:CoreExamApi.Controllers.ExamController.SaveProblemStatusType2(System.Int32)">
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveProblemStatusType2(System.Int32,System.Int32)">
             <summary>
-            一比高下提交每一组的状态
+            一比高下提交每一题的状态
             </summary>
+            <param name="problemType">题目类型(2、一比高下 3、狭路相逢)</param>
             <param name="questionNumber">题目编号</param>
             <returns></returns>
         </member>
@@ -221,6 +222,21 @@
             <param name="moduleType">moduleType（4、狭路相逢结束）</param>
             <returns></returns>
         </member>
+        <member name="T:CoreExamApi.Dto.AccuracyDto">
+            <summary>
+            准确率
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.AccuracyDto.rightCount">
+            <summary>
+            正确人数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.AccuracyDto.partUserCount">
+            <summary>
+            提交人数
+            </summary>
+        </member>
         <member name="P:CoreExamApi.Dto.ExamProblemDto.ID">
             <summary>
             ID
@@ -249,6 +265,11 @@
         <member name="P:CoreExamApi.Dto.ExamProblemWithTimeDto.Countdown">
             <summary>
             倒计时
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemWithTimeDto.IsSubmitOver">
+            <summary>
+            是否已提交（1、代表已提交）
             </summary>
         </member>
         <member name="T:CoreExamApi.Dto.ExamProblemDto2">
@@ -349,11 +370,6 @@
         <member name="P:CoreExamApi.Dto.ProblemSingleWithCountDto.Countdown">
             <summary>
             倒计时
-            </summary>
-        </member>
-        <member name="P:CoreExamApi.Dto.ProblemSingleWithCountDto.PartUserCount">
-            <summary>
-            参与人数
             </summary>
         </member>
         <member name="P:CoreExamApi.Dto.ProblemSingle.ProblemID">

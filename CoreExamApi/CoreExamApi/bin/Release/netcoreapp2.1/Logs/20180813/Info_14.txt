@@ -1,0 +1,18 @@
+[14:14:51] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[14:15:07] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[14:15:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[14:15:09] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[14:15:09] Request finished in 67.6481ms 200 
+[14:15:09] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[14:15:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[14:15:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[14:15:09] Request finished in 546.7988ms 200 text/html
+[14:15:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[14:15:09] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[14:15:09] Request finished in 37.3595ms 200 text/css
+[14:15:09] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[14:15:09] Request finished in 81.2989ms 200 application/javascript
+[14:15:09] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[14:15:09] Request finished in 177.1731ms 200 application/javascript
+[14:15:10] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[14:15:10] Request finished in 392.5157ms 200 application/json

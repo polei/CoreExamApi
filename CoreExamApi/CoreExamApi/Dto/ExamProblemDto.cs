@@ -46,6 +46,10 @@ namespace CoreExamApi.Dto
         /// 倒计时
         /// </summary>
         public int Countdown { get; set; }
+        /// <summary>
+        /// 是否已提交（1、代表已提交）
+        /// </summary>
+        public int? IsSubmitOver { get; set; }
     }
 
 

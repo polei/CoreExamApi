@@ -52,7 +52,7 @@ namespace CoreExamApi.Controllers
         {
             var userId = _identityService.GetUserIdentity();
             var userExamProblemList = await _examContext.UserProblemScores
-                .Where(x => x.UserID == new Guid(userId)
+                .Where(x => x.UserID == Guid.Parse(userId)
                 && x.ProblemType == (int)eProblemType.争分夺秒
                 && x.ProblemSubType == subType)
                 .OrderBy(o => o.QuestionNumber)
@@ -67,6 +67,7 @@ namespace CoreExamApi.Controllers
                 }).ToListAsync();
             ExamProblemWithTimeDto model = new ExamProblemWithTimeDto();
             model.ProblemList = userExamProblemList;
+            model.IsSubmitOver = userExamProblemList.FirstOrDefault()?.IsSubmitOver;
             var process = await _examContext.ExamProcesss
                 .Where(x => x.ModuleType == (int)eProblemType.争分夺秒 && x.SubType == subType)
                 .FirstOrDefaultAsync();
@@ -98,7 +99,7 @@ namespace CoreExamApi.Controllers
             //_logger.LogInformation("获取狭路相逢考试问题：problemType：{0}，questionNumber：{1}", problemType, questionNumber);
             var userId = _identityService.GetUserIdentity();
             var userExamProblem = await _examContext.UserProblemScores
-                .Where(x => x.UserID == new Guid(userId)
+                .Where(x => x.UserID == Guid.Parse(userId)
                 && x.ProblemType == problemType
                 && x.QuestionNumber == questionNumber).SingleOrDefaultAsync();
             ExamProblemDto2 model = new ExamProblemDto2();
@@ -176,7 +177,7 @@ namespace CoreExamApi.Controllers
                 return BadRequest(ModelState);
             }
             var json = new mJsonResult();
-            Guid examProblemID = new Guid(model.examProblemID);
+            Guid examProblemID = Guid.Parse(model.examProblemID);
             using (var trans = _examContext.Database.BeginTransaction())
             {
                 try
@@ -217,7 +218,7 @@ namespace CoreExamApi.Controllers
                             _examContext.UserProblemScores.Update(userProScore);
                             _examContext.SaveChanges();
                             //统计所有
-                            var userId = new Guid(_identityService.GetUserIdentity());
+                            var userId = Guid.Parse(_identityService.GetUserIdentity());
                             var userExamScore = await _examContext.UserExamScores
                                 .SingleOrDefaultAsync(s => s.UserID == userId);
                             var userProblemScore = _examContext.UserProblemScores
@@ -290,19 +291,20 @@ namespace CoreExamApi.Controllers
         }
 
         /// <summary>
-        /// 一比高下提交每一组的状态
+        /// 一比高下和狭路相逢提交每一题的状态
         /// </summary>
+        /// <param name="problemType">题目类型(2、一比高下 3、狭路相逢)</param>
         /// <param name="questionNumber">题目编号</param>
         /// <returns></returns>
         [HttpPost]
         [Route("save/number/status")]
         [ProducesResponseType(typeof(bool), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> SaveProblemStatusType2(int questionNumber = 1)
+        public async Task<IActionResult> SaveProblemStatusType2(int problemType=2, int questionNumber = 1)
         {
-            var userId = new Guid(_identityService.GetUserIdentity());
+            var userId = Guid.Parse(_identityService.GetUserIdentity());
             var userProScore = _examContext.UserProblemScores
-                .Where(x => x.ProblemType == (int)eProblemType.一比高下
+                .Where(x => x.ProblemType == problemType
                 && x.UserID == userId && x.QuestionNumber == questionNumber).FirstOrDefault();
             if (userProScore is null)
             {
@@ -373,7 +375,7 @@ namespace CoreExamApi.Controllers
             ModuleDetailDto model = new ModuleDetailDto();
             var userId = _identityService.GetUserIdentity();
             var userProScore = await _examContext.UserProblemScores
-                   .Where(x => x.UserID == new Guid(userId)).ToListAsync();
+                   .Where(x => x.UserID == Guid.Parse(userId)).ToListAsync();
             var userTypeProScore = userProScore.Where(x => x.ProblemType == type);
             model.tAnswerCount = userTypeProScore.Count(c => c.Score > 0);
             model.mScore = userTypeProScore.Sum(s => s.Score);
@@ -405,7 +407,7 @@ namespace CoreExamApi.Controllers
             UserScoreDto model = new UserScoreDto();
             var userId = _identityService.GetUserIdentity();
             var userScore = await _examContext.UserExamScores.Include(c => c.User)//默认不开启懒加载
-                .SingleOrDefaultAsync(x => x.UserID == new Guid(userId));
+                .SingleOrDefaultAsync(x => x.UserID == Guid.Parse(userId));
             if (userScore != null)
             {
                 model.TrueName = userScore.User?.TrueName;
@@ -435,7 +437,7 @@ namespace CoreExamApi.Controllers
             SingleUserRankingDto model = new SingleUserRankingDto();
             var userId = _identityService.GetUserIdentity();
             var userRankingList = await _examService.GetUserRankingList();
-            var userRanking = userRankingList.Where(x => x.UserID == new Guid(userId)).Single();
+            var userRanking = userRankingList.Where(x => x.UserID == Guid.Parse(userId)).Single();
             model.xRanking = userRanking.RankingNum;
             model.xScore = userRanking.Score;
             var userLessRanking = userRankingList.Where(x => x.Score > model.xScore)
@@ -481,7 +483,7 @@ namespace CoreExamApi.Controllers
         {
             UserExamProcessDto model = new UserExamProcessDto();
             var process = await _examContext.ExamProcesss.FirstOrDefaultAsync();
-            if (process == null)
+            if (process is null)
             {
                 return NotFound();
             }
@@ -494,7 +496,7 @@ namespace CoreExamApi.Controllers
                 model.AddTime = process.AddTime;
                 if (process.ModuleType == (int)eProblemType.狭路相逢)
                 {
-                    var userId = new Guid(_identityService.GetUserIdentity());
+                    var userId = Guid.Parse(_identityService.GetUserIdentity());
                     model.ChiocePart = _examContext.UserExamPartners
                         .Where(x => x.UserID == userId&&x.QuestionNumber == process.Number)
                         .FirstOrDefault()?.ChiocePart;
