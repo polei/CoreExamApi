@@ -1,0 +1,46 @@
+[13:51:42] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[13:52:30] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[13:52:30] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[13:52:30] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[13:52:30] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[13:52:30] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[13:52:30] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[13:52:30] Applying migration '20180809055142_AddUserTableEngineer'.
+[13:52:31] Executed DbCommand (90ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [User] ADD [IsEngineer] int NOT NULL DEFAULT 0;
+[13:52:31] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20180809055142_AddUserTableEngineer', N'2.1.1-rtm-30846');
+[13:52:31] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[13:52:31] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[13:52:32] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[13:52:32] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[13:52:32] Request finished in 120.7682ms 200 
+[13:52:33] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[13:52:33] Request finished in 307.6718ms 200 text/html
+[13:52:33] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[13:52:33] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[13:52:33] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[13:52:33] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[13:52:33] Request finished in 141.7808ms 200 text/css
+[13:52:33] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[13:52:33] Request finished in 137.6274ms 200 application/javascript
+[13:52:33] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[13:52:33] Request finished in 152.6897ms 200 application/javascript
+[13:52:34] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[13:52:34] Request finished in 402.4775ms 200 application/json

@@ -70,7 +70,12 @@ namespace CoreExamApi.Models
         [Display(Name = "得到分数")]
         public decimal? Score { get; set; }
 
-        
+        /// <summary>
+        /// 1、代表已提交（已提交的问题不能修改）
+        /// </summary>
+        [Display(Name = "是否提交")]
+        public int IsSubmitOver { get; set; }
+
         #region 外键
         public Guid UserID { get; set; }
         public virtual User User { get; set; }

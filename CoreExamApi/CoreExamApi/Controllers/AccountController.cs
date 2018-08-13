@@ -23,11 +23,14 @@ namespace CoreExamApi.Controllers
     {
         private readonly ExamContext _examContext;
         private readonly ExamingSettings _settings;
+        private readonly ILogger<AccountController> _logger;
         public AccountController(ExamContext examContext
-            , IOptionsSnapshot<ExamingSettings> settings)
+            , IOptionsSnapshot<ExamingSettings> settings
+            , ILogger<AccountController> logger)
         {
             _settings = settings.Value;
             _examContext = examContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -73,12 +76,52 @@ namespace CoreExamApi.Controllers
             return Ok(json);
         }
 
-        //[HttpGet]
-        //[Route("test/logger")]
-        //public IActionResult TestLogger()
-        //{
-        //    _logger.LogInformation("添加666");
-        //    return Ok();
-        //}
+        [HttpGet]
+        [Route("test/logger")]
+        public IActionResult TestLogger()
+        {
+            _logger.LogInformation("整6666");
+            return Ok();
+        }
+
+        /// <summary>
+        /// 大屏幕用户登录
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("screen/login")]
+        public IActionResult ScreenLogin([FromBody] LoginViewModel model)
+        {
+            var json = new mJsonResult();
+            if (ModelState.IsValid)
+            {
+                if (model.userName== _settings.ScreenLoginName
+                    &&model.password== _settings.ScreenPassword)
+                {
+                    var claims = new[]
+                    {
+                        new Claim("name", _settings.ScreenLoginName),
+                        new Claim("adminPolicy","adminPolicy")
+                    };
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecurityKey));
+                    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                    var token = new JwtSecurityToken(
+                                    claims: claims,
+                                    expires: DateTime.Now.AddDays(2),
+                                    signingCredentials: creds
+                                );
+                    json.success = true;
+                    json.data = new JwtSecurityTokenHandler().WriteToken(token);
+                }
+                else
+                {
+                    json.msg = "用户名或密码错误！";
+                }
+            }
+
+            return Ok(json);
+        }
     }
 }

@@ -23,6 +23,9 @@ namespace AdminWeb.Models
         
         public DateTime CreateDate { get; set; }
 
-
+        /// <summary>
+        /// 是否造价工程师(1、是 0、否)
+        /// </summary>
+        public int IsEngineer { get; set; }
     }
 }

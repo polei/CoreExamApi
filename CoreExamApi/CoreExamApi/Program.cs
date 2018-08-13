@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
+using NLog.Web;
 
 namespace CoreExamApi
 {
@@ -27,6 +28,7 @@ namespace CoreExamApi
             //            .Wait();
 
             //    }).Run();
+            //NLog.Web.NLogBuilder.ConfigureNLog("NLog.config");
             var host = CreateWebHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
@@ -52,6 +54,12 @@ namespace CoreExamApi
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseStartup<Startup>();
+            .UseStartup<Startup>()
+            .ConfigureLogging(logging =>
+             {
+                 logging.ClearProviders(); //移除已经注册的其他日志处理程序
+                 logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Information); //设置最小的日志级别
+             })
+            .UseNLog();
     }
 }

@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AdminWeb.dll">
-      <publishTime>07/30/2018 17:26:29</publishTime>
+      <publishTime>08/09/2018 16:43:57</publishTime>
     </File>
     <File Include="bin/AdminWeb.pdb">
-      <publishTime>07/30/2018 17:26:29</publishTime>
+      <publishTime>08/09/2018 16:43:57</publishTime>
     </File>
     <File Include="bin/Autofac.dll">
       <publishTime>08/09/2016 13:56:12</publishTime>
@@ -1099,16 +1099,16 @@
       <publishTime>07/25/2018 19:33:47</publishTime>
     </File>
     <File Include="Views/Main/UserPageList.cshtml">
-      <publishTime>07/25/2018 10:50:17</publishTime>
+      <publishTime>08/09/2018 14:04:41</publishTime>
     </File>
     <File Include="Views/Main/UserScoreList.cshtml">
-      <publishTime>07/25/2018 10:14:34</publishTime>
+      <publishTime>08/09/2018 14:21:32</publishTime>
     </File>
     <File Include="Views/web.config">
       <publishTime>07/24/2018 14:11:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/30/2018 17:26:30</publishTime>
+      <publishTime>08/09/2018 16:43:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -85,8 +85,9 @@ namespace AdminWeb.Services
                 DynamicParameters Params = new DynamicParameters();
                 StringBuilder sql = new StringBuilder(@"with t as
                         (select *, ROW_NUMBER() OVER(Order by TotalScores desc) AS rownum 
-                        from [dbo].[UserExamScore])
-                        select t.rownum,u.TrueName,t.TotalScores,t.TypeScores1
+                        from (select rank() over (order by TotalScores desc)as RankingNum,* from [dbo].[UserExamScore])b)
+                        select t.rownum,t.RankingNum,u.TrueName,t.TotalScores,t.TypeScores1,u.UserName
+                        ,u.CompanyName,u.OrderNumber,u.IsEngineer
                         ,t.TypeScores2,t.TypeScores3 from t 
                         inner join [dbo].[User] u on t.UserID=u.ID
                         where 1=1");
@@ -114,7 +115,7 @@ namespace AdminWeb.Services
                         select count(0) from [dbo].[UserExamScore] t");
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    sql.Append(@"inner join [dbo].[User] u on t.UserID=u.ID
+                    sql.Append(@" inner join [dbo].[User] u on t.UserID=u.ID
                         where 1=1 and u.TrueName like @searchValue");
                     Params.Add("@searchValue", "%" + searchValue + "%");
                 }
@@ -186,9 +187,9 @@ namespace AdminWeb.Services
                     await connection.ExecuteAsync(@"
                     insert into [dbo].[UserProblemScore]([ID],[ProblemID],[ProblemName]
                     ,[ProblemFeatures] ,[Answer],[ProblemScore]
-                    ,[ProblemType],[ProblemSubType],[QuestionNumber],[UserID]) 
+                    ,[ProblemType],[ProblemSubType],[QuestionNumber],[UserID],[IsSubmitOver]) 
                     values(@ID,@ProblemID,@ProblemName,@ProblemFeatures,@Answer,@ProblemScore
-                        ,@ProblemType,@ProblemSubType,@QuestionNumber,@UserID)
+                        ,@ProblemType,@ProblemSubType,@QuestionNumber,@UserID,0)
                         ", list, transaction);
                     transaction.Commit();
 

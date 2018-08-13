@@ -79,6 +79,41 @@ namespace CoreExamApi.Infrastructure.Services
             }
         }
 
-       
+        /// <summary>
+        /// 对于选择狭路相逢的选手，而没有分数的批量处理
+        /// </summary>
+        /// <param name="userScoreListID"></param>
+        /// <returns></returns>
+        public async Task<bool> SumUserExamScore(List<UserProblemScoreViewModel> userScoreListID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var result = await connection.ExecuteAsync(@"
+                        Update [dbo].[UserProblemScore] set Score=-a.ProblemScore 
+                        from [dbo].[UserProblemScore] a where ID=@userProblemScoreID;
+                        Update [dbo].[UserExamScore] set TypeScores3=@TypeScores3,TotalScores=@TotalScores 
+                        from [dbo].[UserExamScore] where UserID=@UserID", userScoreListID);
+                return result>0;
+            }
+        }
+
+        /// <summary>
+        /// 修改每一组提交状态
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateUserProStatus(List<UserProScoreIDModel> list)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var result = await connection.ExecuteAsync(@"
+                        Update [dbo].[UserProblemScore] set IsSubmitOver=1 
+                from [dbo].[UserProblemScore] a where ID=@scoreID;
+                        ", list);
+                return result > 0;
+            }
+        }
     }
 }

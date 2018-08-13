@@ -24,6 +24,10 @@ namespace CoreExamApi.Models
         public int QuestionNumber { get; set; }
 
         /// <summary>
+        /// 是否参与（0、否；1、是）
+        /// </summary>
+        public int ChiocePart { get; set; }
+        /// <summary>
         /// 用户ID
         /// </summary>
         public Guid UserID { get; set; }

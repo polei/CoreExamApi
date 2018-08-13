@@ -13,5 +13,10 @@ namespace CoreExamApi.ViewModel
 
         [Required(ErrorMessage = "问题Guid不能为空。")]
         public string examProblemID { get; set; }
+
+        /// <summary>
+        /// 是否提交,1、表示已经提交
+        /// </summary>
+        public int? isSubmitOver { get; set; }
     }
 }

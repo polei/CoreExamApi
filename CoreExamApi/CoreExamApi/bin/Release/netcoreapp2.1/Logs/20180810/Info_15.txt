@@ -1,0 +1,57 @@
+[15:00:56] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[15:01:41] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[15:01:42] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[15:01:42] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[15:01:42] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[15:01:42] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[15:01:42] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[15:01:42] Applying migration '20180810070056_AddIsSubmitOver'.
+[15:01:42] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [UserProblemScore] ADD [IsSubmitOver] int NOT NULL DEFAULT 0;
+[15:01:42] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20180810070056_AddIsSubmitOver', N'2.1.1-rtm-30846');
+[15:01:42] Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[15:01:42] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[15:01:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[15:01:43] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[15:01:43] Request finished in 39.8051ms 200 
+[15:01:43] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[15:01:43] Request finished in 275.0891ms 200 text/html
+[15:01:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[15:01:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[15:01:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[15:01:43] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[15:01:43] Request finished in 22.6554ms 200 text/css
+[15:01:44] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[15:01:44] Request finished in 163.2998ms 200 application/javascript
+[15:01:44] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[15:01:44] Request finished in 233.7002ms 200 application/javascript
+[15:01:45] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[15:01:45] Request finished in 330.9284ms 200 application/json
+[15:03:08] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[15:03:08] The file /swagger/ui/index.html was not modified
+[15:03:08] Request finished in 65.0288ms 304 text/html
+[15:03:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[15:03:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/favicon-32x32.png  
+[15:03:09] Sending file. Request path: '/swagger/ui/favicon-32x32.png'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\favicon-32x32.png'
+[15:03:09] Request finished in 25.85ms 200 image/png
+[15:03:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/favicon-16x16.png  
+[15:03:09] Sending file. Request path: '/swagger/ui/favicon-16x16.png'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\favicon-16x16.png'
+[15:03:09] Request finished in 0.6473ms 200 image/png
+[15:03:09] Request finished in 88.7133ms 200 application/json

@@ -50,8 +50,8 @@ namespace AdminWeb.Services
             {
                 connection.Open();
                 var result =await connection.ExecuteAsync(@"insert into [dbo].[User]
-                            (ID,UserName,TrueName,CompanyName,OrderNumber,CreateDate)
-                        values(@ID,@UserName,@TrueName,@CompanyName,@OrderNumber,@CreateDate)", userList);
+                            (ID,UserName,TrueName,CompanyName,OrderNumber,CreateDate,IsEngineer)
+                        values(@ID,@UserName,@TrueName,@CompanyName,@OrderNumber,@CreateDate,@IsEngineer)", userList);
 
                 return result>0;
             }

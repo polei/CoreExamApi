@@ -1,0 +1,80 @@
+[21:44:33] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[21:44:33] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[21:44:33] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[21:44:33] Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[21:44:34] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[21:44:35] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[21:44:35] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[21:44:35] Request finished in 113.4277ms 200 
+[21:44:35] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[21:44:35] Request finished in 400.5168ms 200 text/html
+[21:44:36] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[21:44:36] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[21:44:36] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[21:44:36] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[21:44:36] Request finished in 61.4023ms 200 text/css
+[21:44:36] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[21:44:36] Request finished in 115.1543ms 200 application/javascript
+[21:44:36] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[21:44:36] Request finished in 178.3981ms 200 application/javascript
+[21:44:37] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[21:44:37] Request finished in 365.8854ms 200 application/json
+[21:45:05] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/login application/json-patch+json 60
+[21:45:05] Policy execution successful.
+[21:45:05] Route matched with {action = "Login", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.Login (CoreExamApi)
+[21:45:05] Executing action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[21:45:05] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[21:45:05] Executed DbCommand (129ms) [Parameters=[@__model_userName_0='?' (Size = 200), @__model_password_1='?' (Size = 200)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [x].[ID], [x].[CompanyName], [x].[CreateDate], [x].[IsEngineer], [x].[OrderNumber], [x].[TrueName], [x].[UserName]
+FROM [User] AS [x]
+WHERE ([x].[UserName] = @__model_userName_0) AND ([x].[UserName] = @__model_password_1)
+[21:45:05] Executed action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 406.9056ms.
+[21:45:05] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[21:45:05] Executed action CoreExamApi.Controllers.AccountController.Login (CoreExamApi) in 501.8597ms
+[21:45:05] Request finished in 572.0138ms 200 application/json; charset=utf-8
+[21:45:53] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/problem?problemType=3&questionNumber=7  
+[21:45:53] Successfully validated the token.
+[21:45:53] Route matched with {action = "GetExamProblem", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetExamProblem (CoreExamApi)
+[21:45:53] Authorization was successful.
+[21:45:53] Executing action method CoreExamApi.Controllers.ExamController.GetExamProblem (CoreExamApi) with arguments (3, 7) - Validation state: Valid
+[21:45:53] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[21:45:53] Executed DbCommand (3ms) [Parameters=[@__questionNumber_2='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID], [x].[Answer], [x].[ExaminationDate], [x].[ProblemFeatures], [x].[ProblemID], [x].[ProblemName], [x].[ProblemScore], [x].[ProblemSubType], [x].[ProblemType], [x].[QuestionNumber], [x].[Score], [x].[SubmitAnswer], [x].[UserID]
+FROM [UserProblemScore] AS [x]
+WHERE [x].[QuestionNumber] = @__questionNumber_2
+[21:45:53] Executed DbCommand (0ms) [Parameters=[@__problemType_0='?' (DbType = Int32), @__questionNumber_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[AddTime], [x].[ModuleType], [x].[Number], [x].[SubType]
+FROM [ExamProcess] AS [x]
+WHERE ([x].[ModuleType] = @__problemType_0) AND ([x].[Number] = @__questionNumber_1)
+[21:45:53] Executed action method CoreExamApi.Controllers.ExamController.GetExamProblem (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 92.4467ms.
+[21:45:53] Executing ObjectResult, writing value of type 'CoreExamApi.Dto.ExamProblemDto2'.
+[21:45:53] Executed action CoreExamApi.Controllers.ExamController.GetExamProblem (CoreExamApi) in 319.7373ms
+[21:45:53] Request finished in 450.1276ms 200 application/json; charset=utf-8
+[21:46:37] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/exam/saveOneProblem application/json-patch+json 84
+[21:46:37] Successfully validated the token.
+[21:46:37] Policy execution successful.
+[21:46:37] Route matched with {action = "SaveOneProblem", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.SaveOneProblem (CoreExamApi)
+[21:46:37] Authorization was successful.
+[21:46:37] Executing action method CoreExamApi.Controllers.ExamController.SaveOneProblem (CoreExamApi) with arguments (CoreExamApi.ViewModel.SubmitProblemViewModel) - Validation state: Valid
+[21:46:41] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[21:46:41] Executed DbCommand (4ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [e].[ID], [e].[Answer], [e].[ExaminationDate], [e].[ProblemFeatures], [e].[ProblemID], [e].[ProblemName], [e].[ProblemScore], [e].[ProblemSubType], [e].[ProblemType], [e].[QuestionNumber], [e].[Score], [e].[SubmitAnswer], [e].[UserID]
+FROM [UserProblemScore] AS [e]
+WHERE [e].[ID] = @__get_Item_0
+[21:46:43] Executed DbCommand (130ms) [Parameters=[@__model_ProblemType_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[AddTime], [x].[ModuleType], [x].[Number], [x].[SubType]
+FROM [ExamProcess] AS [x]
+WHERE [x].[ModuleType] = @__model_ProblemType_0
+[21:46:44] Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [b].[ID], [b].[PartTimeSpan], [b].[TypeTimeSpan1], [b].[TypeTimeSpan2], [b].[TypeTimeSpan3]
+FROM [BaseExamSetting] AS [b]

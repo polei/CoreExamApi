@@ -250,6 +250,8 @@ namespace AdminWeb.Controllers
                         model.OrderNumber = Convert.ToInt16(dr["序号"]);
                         model.TrueName = dr["姓名"].ToString();
                         model.CompanyName = dr["单位名称"].ToString();
+                        model.IsEngineer = string.IsNullOrEmpty(dr["是否造价师"].ToString()) ?
+                            0 : Convert.ToInt32(dr["是否造价师"].ToString());
                         model.CreateDate = DateTime.Now;
                         list.Add(model);
                     }
@@ -521,16 +523,24 @@ namespace AdminWeb.Controllers
             row1.CreateCell(3).SetCellValue("争分夺秒 ");
             row1.CreateCell(4).SetCellValue("一比高下");
             row1.CreateCell(5).SetCellValue("狭路相逢");
+            row1.CreateCell(6).SetCellValue("编号");
+            row1.CreateCell(7).SetCellValue("单位");
+            row1.CreateCell(8).SetCellValue("手机号码");
+            row1.CreateCell(9).SetCellValue("是否造价师");
             //将数据逐步写入sheet1各个行
             for (int i = 0; i < list.Count; i++)
             {
                 NPOI.SS.UserModel.IRow rowtemp = sheet1.CreateRow(i + 1);
                 rowtemp.CreateCell(0).SetCellValue(list[i].TrueName);
                 rowtemp.CreateCell(1).SetCellValue(list[i].TotalScores?.ToString());
-                rowtemp.CreateCell(2).SetCellValue(list[i].rownum);
+                rowtemp.CreateCell(2).SetCellValue(list[i].RankingNum);
                 rowtemp.CreateCell(3).SetCellValue(list[i].TypeScores1?.ToString());
                 rowtemp.CreateCell(4).SetCellValue(list[i].TypeScores2?.ToString());
                 rowtemp.CreateCell(5).SetCellValue(list[i].TypeScores3?.ToString());
+                rowtemp.CreateCell(6).SetCellValue(list[i].OrderNumber);
+                rowtemp.CreateCell(7).SetCellValue(list[i].CompanyName);
+                rowtemp.CreateCell(8).SetCellValue(list[i].UserName);
+                rowtemp.CreateCell(9).SetCellValue(list[i].IsEngineer==1?"是":"否");
             }
             // 写入到客户端 
             System.IO.MemoryStream ms = new System.IO.MemoryStream();

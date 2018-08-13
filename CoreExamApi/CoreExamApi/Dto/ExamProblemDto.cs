@@ -25,6 +25,11 @@ namespace CoreExamApi.Dto
         /// 每组的题号
         /// </summary>
         public int QuestionNumber { get; set; }
+
+        /// <summary>
+        /// 是否已提交（1、代表已提交）
+        /// </summary>
+        public int IsSubmitOver { get; set; }
     }
 
     /// <summary>

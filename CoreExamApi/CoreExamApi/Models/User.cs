@@ -34,7 +34,12 @@ namespace CoreExamApi.Models
 
         [Display(Name ="序号")]
         public int OrderNumber { get; set; }
-        
+
+        /// <summary>
+        /// 是否造价工程师(1、是 0、否)
+        /// </summary>
+        [Display(Name ="是否造价工程师")]
+        public int IsEngineer { get; set; }
 
         [Display(Name = "创建时间")]
         public DateTime CreateDate { get; set; }

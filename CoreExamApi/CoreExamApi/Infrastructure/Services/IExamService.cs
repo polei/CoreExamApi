@@ -21,5 +21,19 @@ namespace CoreExamApi.Infrastructure.Services
         /// </summary>
         /// <returns></returns>
         Task<List<UserRankingModel>> GetUserRankingList();
+
+        /// <summary>
+        /// 对于选择狭路相逢的选手，而没有分数的批量处理
+        /// </summary>
+        /// <param name="userScoreListID"></param>
+        Task<bool> SumUserExamScore(List<UserProblemScoreViewModel> userScoreListID);
+
+
+        /// <summary>
+        /// 修改每一组提交状态
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        Task<bool> UpdateUserProStatus(List<UserProScoreIDModel> list);
     }
 }

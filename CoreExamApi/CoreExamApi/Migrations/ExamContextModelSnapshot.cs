@@ -92,6 +92,8 @@ namespace CoreExamApi.Migrations
 
                     b.Property<DateTime>("CreateDate");
 
+                    b.Property<int>("IsEngineer");
+
                     b.Property<int>("OrderNumber");
 
                     b.Property<string>("TrueName")
@@ -113,6 +115,8 @@ namespace CoreExamApi.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime?>("AddTime");
+
+                    b.Property<int>("ChiocePart");
 
                     b.Property<int>("QuestionNumber");
 
@@ -156,6 +160,8 @@ namespace CoreExamApi.Migrations
                         .HasMaxLength(10);
 
                     b.Property<DateTime?>("ExaminationDate");
+
+                    b.Property<int>("IsSubmitOver");
 
                     b.Property<string>("ProblemFeatures")
                         .HasMaxLength(500);

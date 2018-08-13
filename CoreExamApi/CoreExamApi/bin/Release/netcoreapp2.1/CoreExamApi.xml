@@ -11,6 +11,13 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:CoreExamApi.Controllers.AccountController.ScreenLogin(CoreExamApi.ViewModel.LoginViewModel)">
+            <summary>
+            大屏幕用户登录
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:CoreExamApi.Controllers.ExamController">
             <summary>
             考试问题
@@ -45,11 +52,25 @@
             <param name="model"></param>
             <returns></returns>
         </member>
-        <member name="M:CoreExamApi.Controllers.ExamController.SaveUserExamPartner(System.Int32)">
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveProblemStatusType1(System.Int32)">
+            <summary>
+            争锋夺秒提交每一组的状态
+            </summary>
+            <param name="subType">状态</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveProblemStatusType2(System.Int32)">
+            <summary>
+            一比高下提交每一组的状态
+            </summary>
+            <param name="questionNumber">题目编号</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.SaveUserExamPartner(CoreExamApi.ViewModel.UserPartnerViewModel)">
             <summary>
             狭路相逢选择是否参与
             </summary>
-            <param name="questionNumber">问题编号</param>
+            <param name="model">提交问题模型</param>
             <returns></returns>
         </member>
         <member name="M:CoreExamApi.Controllers.ExamController.GetModuleDetail(System.Int32)">
@@ -81,6 +102,19 @@
             <summary>
             获取当前流程进度
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetChiocePartCountdown">
+            <summary>
+            获取狭路相逢倒计时
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ExamController.GetProblemInCountdown(CoreExamApi.Models.UserProblemScore)">
+            <summary>
+            是否在答题区间内
+            </summary>
+            <param name="model">(1、狭路相逢 2、一比高下 3、狭路相逢)</param>
             <returns></returns>
         </member>
         <member name="T:CoreExamApi.Controllers.ScreenController">
@@ -146,6 +180,19 @@
             <param name="problemType">类型（1、争分夺秒 2、一比高下 3、狭路相逢）不传获取总分排名</param>
             <returns></returns>
         </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.GetChiocePartCountdown">
+            <summary>
+            获取狭路相逢倒计时
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Controllers.ScreenController.SumUserProblemScore(System.Int32)">
+            <summary>
+            对于选择狭路相逢是的选手，而没有分数的批量处理
+            </summary>
+            <param name="questionNumber">问题编号</param>
+            <returns></returns>
+        </member>
         <member name="M:CoreExamApi.Controllers.SoftPushController.SendMessage(System.Int32)">
             <summary>
             争分夺秒
@@ -167,6 +214,13 @@
             <param name="questionNumber">题号</param>
             <returns></returns>
         </member>
+        <member name="M:CoreExamApi.Controllers.SoftPushController.TakeOverExamProcessAsync(System.Int32)">
+            <summary>
+            结束当前的模块
+            </summary>
+            <param name="moduleType">moduleType（4、狭路相逢结束）</param>
+            <returns></returns>
+        </member>
         <member name="P:CoreExamApi.Dto.ExamProblemDto.ID">
             <summary>
             ID
@@ -175,6 +229,11 @@
         <member name="P:CoreExamApi.Dto.ExamProblemDto.QuestionNumber">
             <summary>
             每组的题号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ExamProblemDto.IsSubmitOver">
+            <summary>
+            是否已提交（1、代表已提交）
             </summary>
         </member>
         <member name="T:CoreExamApi.Dto.ExamProblemWithTimeDto">
@@ -382,6 +441,26 @@
             比当前低的分数
             </summary>
         </member>
+        <member name="T:CoreExamApi.Dto.UserExamProcessDto">
+            <summary>
+            用户当前流程进度（主要是判断在狭路相逢的时候）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserExamProcessDto.ChiocePart">
+            <summary>
+            是否参与（0、否；1、是）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserExamProcessDto.IsChioceOver">
+            <summary>
+            是否选择结束
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.UserExamProcessDto.Countdown">
+            <summary>
+            未结束倒计时
+            </summary>
+        </member>
         <member name="T:CoreExamApi.Dto.UserProblemCountDto">
             <summary>
             单个问题晋级人数统计
@@ -472,6 +551,26 @@
             排名
             </summary>
         </member>
+        <member name="P:CoreExamApi.ExamingSettings.SecurityKey">
+            <summary>
+            秘钥
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ExamingSettings.ScreenLoginName">
+            <summary>
+            大屏幕用户名
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ExamingSettings.ScreenPassword">
+            <summary>
+            大屏幕密码
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.Infrastructure.Enum.eChoicePart">
+            <summary>
+            是否参与狭路相逢
+            </summary>
+        </member>
         <member name="T:CoreExamApi.Infrastructure.Enum.eProblemType">
             <summary>
             模块类型
@@ -500,6 +599,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.ExamService.SumUserExamScore(System.Collections.Generic.List{CoreExamApi.ViewModel.UserProblemScoreViewModel})">
+            <summary>
+            对于选择狭路相逢的选手，而没有分数的批量处理
+            </summary>
+            <param name="userScoreListID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.ExamService.UpdateUserProStatus(System.Collections.Generic.List{CoreExamApi.ViewModel.UserProScoreIDModel})">
+            <summary>
+            修改每一组提交状态
+            </summary>
+            <param name="list"></param>
+            <returns></returns>
+        </member>
         <member name="M:CoreExamApi.Infrastructure.Services.IExamService.GetUserRankingList(System.Nullable{System.Int32})">
             <summary>
             获取用户排名
@@ -511,6 +624,19 @@
             <summary>
             获取排名（手机端使用）
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.IExamService.SumUserExamScore(System.Collections.Generic.List{CoreExamApi.ViewModel.UserProblemScoreViewModel})">
+            <summary>
+            对于选择狭路相逢的选手，而没有分数的批量处理
+            </summary>
+            <param name="userScoreListID"></param>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Services.IExamService.UpdateUserProStatus(System.Collections.Generic.List{CoreExamApi.ViewModel.UserProScoreIDModel})">
+            <summary>
+            修改每一组提交状态
+            </summary>
+            <param name="list"></param>
             <returns></returns>
         </member>
         <member name="T:CoreExamApi.Models.BaseExamSetting">
@@ -588,6 +714,11 @@
             登录为手机号码，密码也为手机号码
             </summary>
         </member>
+        <member name="P:CoreExamApi.Models.User.IsEngineer">
+            <summary>
+            是否造价工程师(1、是 0、否)
+            </summary>
+        </member>
         <member name="T:CoreExamApi.Models.UserExamPartner">
             <summary>
             记录狭路相逢参与的人
@@ -596,6 +727,11 @@
         <member name="P:CoreExamApi.Models.UserExamPartner.QuestionNumber">
             <summary>
             狭路相逢问题编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Models.UserExamPartner.ChiocePart">
+            <summary>
+            是否参与（0、否；1、是）
             </summary>
         </member>
         <member name="P:CoreExamApi.Models.UserExamPartner.UserID">
@@ -633,6 +769,11 @@
             每组的题号
             </summary>
         </member>
+        <member name="P:CoreExamApi.Models.UserProblemScore.IsSubmitOver">
+            <summary>
+            1、代表已提交（已提交的问题不能修改）
+            </summary>
+        </member>
         <member name="P:CoreExamApi.ViewModel.LoginViewModel.userName">
             <summary>
             手机号码？
@@ -641,6 +782,26 @@
         <member name="P:CoreExamApi.ViewModel.LoginViewModel.password">
             <summary>
             密码手机号码？
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.SubmitProblemViewModel.isSubmitOver">
+            <summary>
+            是否提交,1、表示已经提交
+            </summary>
+        </member>
+        <member name="T:CoreExamApi.ViewModel.UserPartnerViewModel">
+            <summary>
+            参与的viewModel
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.UserPartnerViewModel.questionNumber">
+            <summary>
+            问题编号
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.ViewModel.UserPartnerViewModel.chiocePart">
+            <summary>
+            是否参与,默认不参与（1、参与，0、不参与）
             </summary>
         </member>
         <member name="T:CoreExamApi.ViewModel.UserRankingModel">

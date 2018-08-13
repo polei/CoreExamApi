@@ -119,16 +119,19 @@ namespace CoreExamApi
             // prevent from mapping "sub" claim to nameidentifier.
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-            services.AddAuthentication(options =>
+            services.AddAuthorization(options=>
+            {
+                options.AddPolicy("AdminOnly",policy=>policy.RequireClaim("adminPolicy"));
+                options.AddPolicy("CandidateOnly", policy => policy.RequireClaim("uid"));
+            }).AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
             }).AddJwtBearer(options =>
             {
                 //options.Authority = Configuration.GetValue<string>("IdentityUrl");
                 //options.Audience = "examing";
-                //options.RequireHttpsMetadata = false;
+                options.RequireHttpsMetadata = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = false,//是否验证Issuer
@@ -188,6 +191,7 @@ namespace CoreExamApi
                     options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransports.All);
             });
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             var pathBase = Configuration["PATH_BASE"];
 

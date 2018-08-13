@@ -1,0 +1,47 @@
+[15:25:39] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[15:25:40] Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[15:25:40] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[15:25:40] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[15:25:40] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[15:25:42] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[15:25:42] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[15:25:42] Request finished in 80.821ms 200 
+[15:25:43] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[15:25:43] Request finished in 499.3066ms 200 text/html
+[15:25:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[15:25:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[15:25:43] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[15:25:43] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[15:25:43] Request finished in 128.3922ms 200 text/css
+[15:25:43] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[15:25:43] Request finished in 227.5423ms 200 application/javascript
+[15:25:43] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[15:25:43] Request finished in 389.4709ms 200 application/javascript
+[15:25:44] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[15:25:45] Request finished in 724.3835ms 200 application/json
+[15:26:41] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/account/test/logger  
+[15:26:41] Route matched with {action = "TestLogger", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi)
+[15:26:41] Executing action method CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi) - Validation state: Valid
+[15:26:41] 整6666
+[15:26:41] Executed action method CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkResult in 0.5238ms.
+[15:26:41] Executing HttpStatusCodeResult, setting HTTP status code 200
+[15:26:41] Executed action CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi) in 32.7563ms
+[15:26:41] Request finished in 75.1916ms 200 
+[15:28:19] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/account/test/logger  
+[15:28:19] Route matched with {action = "TestLogger", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi)
+[15:28:19] Executing action method CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi) - Validation state: Valid
+[15:28:19] 整6666
+[15:28:19] Executed action method CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkResult in 0.0406ms.
+[15:28:19] Executing HttpStatusCodeResult, setting HTTP status code 200
+[15:28:19] Executed action CoreExamApi.Controllers.AccountController.TestLogger (CoreExamApi) in 2.5685ms
+[15:28:19] Request finished in 3.7215ms 200 
