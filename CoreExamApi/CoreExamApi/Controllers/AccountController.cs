@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CoreExamApi.Infrastructure;
+using CoreExamApi.Infrastructure.Repositorys;
 using CoreExamApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,13 +25,16 @@ namespace CoreExamApi.Controllers
         private readonly ExamContext _examContext;
         private readonly ExamingSettings _settings;
         private readonly ILogger<AccountController> _logger;
+        private readonly IRedisKeyRepository _redisKeyRepository;
         public AccountController(ExamContext examContext
             , IOptionsSnapshot<ExamingSettings> settings
-            , ILogger<AccountController> logger)
+            , ILogger<AccountController> logger
+            , IRedisKeyRepository redisKeyRepository)
         {
             _settings = settings.Value;
             _examContext = examContext;
             _logger = logger;
+            _redisKeyRepository = redisKeyRepository;
         }
 
         /// <summary>
@@ -54,17 +58,20 @@ namespace CoreExamApi.Controllers
                     var claims = new[]
                     {
                         new Claim("name", user.TrueName),
+                        new Claim("sub","Candidate"),
                         new Claim("uid", user.ID.ToString()),
                     };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecurityKey));
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                     var token = new JwtSecurityToken(
                                     claims: claims,
-                                    expires: DateTime.Now.AddDays(2),
+                                    expires: DateTime.Now.AddMinutes(5),
                                     signingCredentials: creds
                                 );
                     json.success = true;
                     json.data = new JwtSecurityTokenHandler().WriteToken(token);
+                    //存redis数据库
+                    await _redisKeyRepository.SetTokenAsync(user.ID.ToString(), json.data);
 
                 }
                 else
@@ -103,6 +110,7 @@ namespace CoreExamApi.Controllers
                     var claims = new[]
                     {
                         new Claim("name", _settings.ScreenLoginName),
+                        new Claim("sub","admin"),
                         new Claim("adminPolicy","adminPolicy")
                     };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecurityKey));

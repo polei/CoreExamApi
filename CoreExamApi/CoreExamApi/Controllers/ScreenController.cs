@@ -344,12 +344,15 @@ namespace CoreExamApi.Controllers
             var json = new mJsonResult();
             var userIDList = _examContext.UserExamPartners
                 .Where(x => x.QuestionNumber == questionNumber
-                && x.ChiocePart == (int)eChoicePart.是).Select(x => x.UserID).Distinct().ToList();
+                && x.ChiocePart == (int)eChoicePart.是)
+                .Select(x => x.UserID.ToString().ToLower()).Distinct().ToList();
             if (userIDList != null && userIDList.Count() > 0)
             {
                 var userScoreIDList = _examContext.UserProblemScores
                     .Where(x => x.QuestionNumber == questionNumber
-                        && userIDList.Contains(x.UserID) && (x.Score == 0 || x.Score == null))
+                        && x.ProblemType==(int)eProblemType.狭路相逢
+                        && userIDList.Contains(x.UserID.ToString().ToLower())
+                        && !x.Score.HasValue)
                         .Select(s => new UserProblemScoreViewModel
                         {
                             userProblemScoreID = s.ID,
@@ -364,13 +367,13 @@ namespace CoreExamApi.Controllers
                     model.UserID = score.UserID;
                     var userExamScore = _examContext.UserExamScores
                         .Where(x => x.UserID == score.UserID).FirstOrDefault();
-                    model.TypeScores3 = userExamScore.TypeScores3 - score.ProblemScore;
-                    model.TotalScores = userExamScore.TotalScores - score.ProblemScore;
+                    model.TypeScores3 = (userExamScore.TypeScores3??0) - score.ProblemScore;
+                    model.TotalScores = (userExamScore.TotalScores??0) - score.ProblemScore;
                     list.Add(model);
                 }
                 if (list.Count() > 0)
                 {
-                    json.success = await _examService.SumUserExamScore(userScoreIDList);
+                    json.success = await _examService.SumUserExamScore(list);
                 }
             }
             json.success = true;//出错好像也做不了东西

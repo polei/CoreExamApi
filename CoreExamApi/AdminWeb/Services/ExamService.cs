@@ -84,19 +84,19 @@ namespace AdminWeb.Services
             {
                 DynamicParameters Params = new DynamicParameters();
                 StringBuilder sql = new StringBuilder(@"with t as
-                        (select *, ROW_NUMBER() OVER(Order by TotalScores desc) AS rownum 
-                        from (select rank() over (order by TotalScores desc)as RankingNum,* from [dbo].[UserExamScore])b)
-                        select t.rownum,t.RankingNum,u.TrueName,t.TotalScores,t.TypeScores1,u.UserName
+                        (select b.RankingNum,u.TrueName,b.TotalScores,b.TypeScores1,u.UserName
                         ,u.CompanyName,u.OrderNumber,u.IsEngineer
-                        ,t.TypeScores2,t.TypeScores3 from t 
-                        inner join [dbo].[User] u on t.UserID=u.ID
-                        where 1=1");
+                        ,b.TypeScores2,b.TypeScores3, ROW_NUMBER() OVER(Order by TotalScores desc) AS rownum 
+                        from (select rank() over (order by TotalScores desc)as RankingNum,* from [dbo].[UserExamScore])b
+						inner join [dbo].[User] u on b.UserID=u.ID
+						where 1=1 ");
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    sql.Append(" and u.TrueName like @searchValue");
+                    sql.Append(" and u.TrueName like @searchValue ");
                     Params.Add("@searchValue", "%" + searchValue + "%");
                 }
-                sql.Append(" and t.rownum between (@page-1)*@rows+1 and @page*@rows");
+                sql.Append(@")select t.rownum,* from t 
+                        where t.rownum between(@page - 1) * @rows + 1 and @page * @rows");
                 Params.Add("@page", page);
                 Params.Add("@rows", rows);
                 connection.Open();

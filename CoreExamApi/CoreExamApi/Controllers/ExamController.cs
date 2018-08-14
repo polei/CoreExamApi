@@ -187,6 +187,11 @@ namespace CoreExamApi.Controllers
                     if (userProScore != null)
                     {
                         #region 判断（规定时间内答题）
+                        if (userProScore.IsSubmitOver == 1)//已经提交的问题不允许提交
+                        {
+                            json.msg = "已经提交的问题不能再提交";
+                            return Ok(json);
+                        }
                         if(!await GetProblemInCountdown(userProScore))
                         {
                             json.msg = "只能在规定时间内答题";
@@ -520,14 +525,15 @@ namespace CoreExamApi.Controllers
         /// <summary>
         /// 获取狭路相逢倒计时
         /// </summary>
+        /// <param name="questionNumber">问题编号</param>
         /// <returns></returns>
         [HttpGet]
         [Route("chioce/countdown")]
-        [ProducesResponseType(typeof(int), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ChiocePartCountdownDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<IActionResult> GetChiocePartCountdown()
+        public async Task<IActionResult> GetChiocePartCountdown(int questionNumber = 1)
         {
-            var countdown = 0;
+            ChiocePartCountdownDto model = new ChiocePartCountdownDto();
             var process = await _examContext.ExamProcesss
                 .Where(x => x.ModuleType == (int)eProblemType.狭路相逢)
                 .FirstOrDefaultAsync();
@@ -538,14 +544,21 @@ namespace CoreExamApi.Controllers
                 TimeSpan tSpan = DateTime.Now - process.AddTime;
                 if (tSpan.TotalSeconds > 0 && tTimeSpan > Convert.ToInt32(tSpan.TotalSeconds))
                 {
-                    countdown = tTimeSpan - Convert.ToInt32(tSpan.TotalSeconds);
+                    model.Countdown = tTimeSpan - Convert.ToInt32(tSpan.TotalSeconds);
                 }
             }
             else
             {
                 return NotFound();
             }
-            return Ok(countdown);
+            var userId = Guid.Parse(_identityService.GetUserIdentity());
+            var chioce = await _examContext.UserExamPartners
+                .Where(x=>x.UserID== userId && x.QuestionNumber== questionNumber).FirstOrDefaultAsync();
+            if (chioce != null)
+            {
+                model.ChiocePart = chioce.ChiocePart;
+            }
+            return Ok(model);
         }
 
         /// <summary>

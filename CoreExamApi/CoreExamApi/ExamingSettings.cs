@@ -21,5 +21,10 @@ namespace CoreExamApi
         /// 大屏幕密码
         /// </summary>
         public string ScreenPassword { get; set; }
+
+        /// <summary>
+        /// redis 连接字符串
+        /// </summary>
+        public string RedisConnectionString { get; set; }
     }
 }

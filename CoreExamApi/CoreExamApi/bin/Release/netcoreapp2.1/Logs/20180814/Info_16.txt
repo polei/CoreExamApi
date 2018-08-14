@@ -1,0 +1,324 @@
+[16:00:41] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/screen/login application/json-patch+json 54
+[16:00:41] Policy execution successful.
+[16:00:41] Route matched with {action = "ScreenLogin", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi)
+[16:00:41] Executing action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[16:00:46] Executed action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4790.2476ms.
+[16:00:46] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:00:46] Executed action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) in 4912.0035ms
+[16:00:46] Request finished in 5221.2037ms 200 application/json; charset=utf-8
+[16:01:19] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:01:19] Successfully validated the token.
+[16:01:19] Policy execution successful.
+[16:01:19] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:01:19] Authorization was successful.
+[16:01:19] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:01:23] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:01:23] Executed DbCommand (2ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT [x].[UserID]
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:01:30] Executed DbCommand (6ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND [x].[UserID] IN ('9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', '16873ad9-2e58-4d3a-88ea-59ae614bca12', '567e2936-5d8a-40b0-baba-74f4bd8cf456', '45d4c293-2f1a-473a-b297-9c117e3e3b16', 'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:02:07] Executed action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 48265.1423ms.
+[16:02:07] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:02:07] Executed action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) in 48287.7394ms
+[16:02:07] Request finished in 48318.2293ms 200 application/json; charset=utf-8
+[16:09:27] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:09:28] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[16:09:28] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[16:09:28] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[16:09:28] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:09:29] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[16:09:29] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[16:09:29] Request finished in 40.5758ms 200 
+[16:09:29] Request finished in 498.9472ms 200 application/json
+[16:09:45] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/screen/login application/json-patch+json 54
+[16:09:45] Policy execution successful.
+[16:09:45] Route matched with {action = "ScreenLogin", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi)
+[16:09:45] Executing action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[16:09:45] Executed action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 7.076ms.
+[16:09:45] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:09:45] Executed action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) in 147.443ms
+[16:09:45] Request finished in 196.8109ms 200 application/json; charset=utf-8
+[16:10:15] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:10:15] Successfully validated the token.
+[16:10:15] Policy execution successful.
+[16:10:15] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:10:15] Authorization was successful.
+[16:10:15] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:10:22] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:10:22] Executed DbCommand (64ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT LOWER(CONVERT(VARCHAR(36), [x].[UserID]))
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:10:26] Executed DbCommand (5ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND LOWER(CONVERT(VARCHAR(36), [x].[UserID])) IN (N'16873ad9-2e58-4d3a-88ea-59ae614bca12', N'45d4c293-2f1a-473a-b297-9c117e3e3b16', N'567e2936-5d8a-40b0-baba-74f4bd8cf456', N'9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', N'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:12:29] Executed action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 133916.6433ms.
+[16:12:29] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:12:29] Executed action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) in 133936.9292ms
+[16:12:29] Request finished in 133960.2673ms 200 application/json; charset=utf-8
+[16:14:31] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:14:31] Successfully validated the token.
+[16:14:31] Policy execution successful.
+[16:14:31] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:14:31] Authorization was successful.
+[16:14:31] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:14:34] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:14:34] Executed DbCommand (2ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT LOWER(CONVERT(VARCHAR(36), [x].[UserID]))
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:14:34] Executed DbCommand (4ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND LOWER(CONVERT(VARCHAR(36), [x].[UserID])) IN (N'16873ad9-2e58-4d3a-88ea-59ae614bca12', N'45d4c293-2f1a-473a-b297-9c117e3e3b16', N'567e2936-5d8a-40b0-baba-74f4bd8cf456', N'9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', N'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:14:34] Executed action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 2963.8448ms.
+[16:14:34] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:14:34] Executed action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) in 2965.0191ms
+[16:14:34] Request finished in 2966.1074ms 200 application/json; charset=utf-8
+[16:19:29] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:19:29] Successfully validated the token.
+[16:19:29] Policy execution successful.
+[16:19:29] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:19:29] Authorization was successful.
+[16:19:29] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:19:32] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:19:32] Executed DbCommand (0ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT LOWER(CONVERT(VARCHAR(36), [x].[UserID]))
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:19:35] Executed DbCommand (3ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND LOWER(CONVERT(VARCHAR(36), [x].[UserID])) IN (N'16873ad9-2e58-4d3a-88ea-59ae614bca12', N'45d4c293-2f1a-473a-b297-9c117e3e3b16', N'567e2936-5d8a-40b0-baba-74f4bd8cf456', N'9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', N'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:19:49] Executed DbCommand (0ms) [Parameters=[@__score_UserID_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[IsOver], [x].[TotalScores], [x].[TypeScores1], [x].[TypeScores2], [x].[TypeScores3], [x].[UserID]
+FROM [UserExamScore] AS [x]
+WHERE [x].[UserID] = @__score_UserID_0
+[16:21:06] Executed action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 97033.4737ms.
+[16:21:06] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:21:06] Executed action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) in 97050.4659ms
+[16:21:06] Request finished in 97058.5648ms 200 application/json; charset=utf-8
+[16:21:33] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:21:33] Successfully validated the token.
+[16:21:33] Policy execution successful.
+[16:21:33] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:21:33] Authorization was successful.
+[16:21:33] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:21:38] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:21:38] Executed DbCommand (1ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT LOWER(CONVERT(VARCHAR(36), [x].[UserID]))
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:21:42] Executed DbCommand (1ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND LOWER(CONVERT(VARCHAR(36), [x].[UserID])) IN (N'16873ad9-2e58-4d3a-88ea-59ae614bca12', N'45d4c293-2f1a-473a-b297-9c117e3e3b16', N'567e2936-5d8a-40b0-baba-74f4bd8cf456', N'9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', N'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:21:47] Executed DbCommand (0ms) [Parameters=[@__score_UserID_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[IsOver], [x].[TotalScores], [x].[TypeScores1], [x].[TypeScores2], [x].[TypeScores3], [x].[UserID]
+FROM [UserExamScore] AS [x]
+WHERE [x].[UserID] = @__score_UserID_0
+[16:23:09] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:23:09] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[16:23:09] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[16:23:10] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[16:23:10] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:23:10] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[16:23:10] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[16:23:10] Request finished in 39.4445ms 200 
+[16:23:11] Request finished in 496.9988ms 200 application/json
+[16:23:37] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/screen/login application/json-patch+json 54
+[16:23:37] Policy execution successful.
+[16:23:37] Route matched with {action = "ScreenLogin", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi)
+[16:23:37] Executing action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[16:23:37] Executed action method CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 24.0489ms.
+[16:23:37] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:23:37] Executed action CoreExamApi.Controllers.AccountController.ScreenLogin (CoreExamApi) in 152.8845ms
+[16:23:37] Request finished in 208.9033ms 200 application/json; charset=utf-8
+[16:23:58] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/screen/type3/score/sum?questionNumber=1  0
+[16:23:58] Successfully validated the token.
+[16:23:58] Policy execution successful.
+[16:23:58] Route matched with {action = "SumUserProblemScore", controller = "Screen"}. Executing action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi)
+[16:23:58] Authorization was successful.
+[16:23:58] Executing action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:24:02] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:24:02] Executed DbCommand (2ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT DISTINCT LOWER(CONVERT(VARCHAR(36), [x].[UserID]))
+FROM [UserExamPartner] AS [x]
+WHERE ([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ChiocePart] = 1)
+[16:24:05] Executed DbCommand (1ms) [Parameters=[@__questionNumber_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID] AS [userProblemScoreID], [x].[UserID], [x].[ProblemScore]
+FROM [UserProblemScore] AS [x]
+WHERE ((([x].[QuestionNumber] = @__questionNumber_0) AND ([x].[ProblemType] = 3)) AND LOWER(CONVERT(VARCHAR(36), [x].[UserID])) IN (N'16873ad9-2e58-4d3a-88ea-59ae614bca12', N'45d4c293-2f1a-473a-b297-9c117e3e3b16', N'567e2936-5d8a-40b0-baba-74f4bd8cf456', N'9fc2badd-5ec4-47b6-bd7d-0f3be97e3914', N'a0804def-05cc-471b-81b6-e57bdd85ca41')) AND [x].[Score] IS NULL
+[16:24:09] Executed DbCommand (0ms) [Parameters=[@__score_UserID_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[IsOver], [x].[TotalScores], [x].[TypeScores1], [x].[TypeScores2], [x].[TypeScores3], [x].[UserID]
+FROM [UserExamScore] AS [x]
+WHERE [x].[UserID] = @__score_UserID_0
+[16:24:30] Executed action method CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 32010.0602ms.
+[16:24:30] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:24:30] Executed action CoreExamApi.Controllers.ScreenController.SumUserProblemScore (CoreExamApi) in 32040.8454ms
+[16:24:30] Request finished in 32106.609ms 200 application/json; charset=utf-8
+[16:39:24] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:39:24] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[16:39:24] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[16:39:24] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[16:39:24] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:39:25] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[16:39:25] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[16:39:25] Request finished in 56.5662ms 200 
+[16:39:26] Request finished in 621.5285ms 500 text/html; charset=utf-8
+[16:42:44] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:42:44] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[16:42:44] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[16:42:44] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[16:42:44] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:42:56] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[16:42:56] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[16:42:56] Request finished in 52.0275ms 200 
+[16:43:04] Request finished in 7291.5893ms 200 application/json
+[16:43:36] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/login application/json-patch+json 60
+[16:43:44] Policy execution successful.
+[16:43:44] Route matched with {action = "Login", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.Login (CoreExamApi)
+[16:43:44] Executing action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[16:43:44] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:43:44] Executed DbCommand (17ms) [Parameters=[@__model_userName_0='?' (Size = 200), @__model_password_1='?' (Size = 200)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [x].[ID], [x].[CompanyName], [x].[CreateDate], [x].[IsEngineer], [x].[OrderNumber], [x].[TrueName], [x].[UserName]
+FROM [User] AS [x]
+WHERE ([x].[UserName] = @__model_userName_0) AND ([x].[UserName] = @__model_password_1)
+[16:43:44] Executed action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 325.1854ms.
+[16:43:44] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:43:44] Executed action CoreExamApi.Controllers.AccountController.Login (CoreExamApi) in 418.1812ms
+[16:43:44] Request finished in 8085.9777ms 200 application/json; charset=utf-8
+[16:44:09] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/problems?subType=1  
+[16:45:10] Successfully validated the token.
+[16:45:10] Route matched with {action = "GetExamProblemList", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi)
+[16:45:11] Authorization was successful.
+[16:45:11] Executing action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:45:12] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:45:12] Executed DbCommand (29ms) [Parameters=[@__Parse_0='?' (DbType = Guid), @__subType_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID], [x].[SubmitAnswer], [x].[ProblemName], [x].[ProblemFeatures], [x].[QuestionNumber], [x].[IsSubmitOver]
+FROM [UserProblemScore] AS [x]
+WHERE (([x].[UserID] = @__Parse_0) AND ([x].[ProblemType] = 1)) AND ([x].[ProblemSubType] = @__subType_1)
+ORDER BY [x].[QuestionNumber]
+[16:45:12] Executed DbCommand (17ms) [Parameters=[@__subType_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[AddTime], [x].[ModuleType], [x].[Number], [x].[SubType]
+FROM [ExamProcess] AS [x]
+WHERE ([x].[ModuleType] = 1) AND ([x].[SubType] = @__subType_0)
+[16:45:12] Executed action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1945.8712ms.
+[16:45:12] Executing ObjectResult, writing value of type 'CoreExamApi.Dto.ExamProblemWithTimeDto'.
+[16:45:12] Executed action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) in 1977.989ms
+[16:45:12] Request finished in 63882.6816ms 200 application/json; charset=utf-8
+[16:47:47] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:47:47] Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[16:47:47] Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[16:47:47] Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[16:47:48] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[16:47:48] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[16:47:48] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[16:47:48] Request finished in 103.6635ms 200 
+[16:48:15] Request finished in 26313.8659ms 200 application/json
+[16:48:32] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/login application/json-patch+json 60
+[16:48:37] Policy execution successful.
+[16:48:38] Route matched with {action = "Login", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.Login (CoreExamApi)
+[16:48:38] Executing action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[16:48:38] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:48:38] Executed DbCommand (48ms) [Parameters=[@__model_userName_0='?' (Size = 200), @__model_password_1='?' (Size = 200)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [x].[ID], [x].[CompanyName], [x].[CreateDate], [x].[IsEngineer], [x].[OrderNumber], [x].[TrueName], [x].[UserName]
+FROM [User] AS [x]
+WHERE ([x].[UserName] = @__model_userName_0) AND ([x].[UserName] = @__model_password_1)
+[16:48:38] Executed action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 242.3067ms.
+[16:48:38] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[16:48:38] Executed action CoreExamApi.Controllers.AccountController.Login (CoreExamApi) in 361.905ms
+[16:48:38] Request finished in 6038.4166ms 200 application/json; charset=utf-8
+[16:49:05] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/problems?subType=1  
+[16:49:52] Successfully validated the token.
+[16:49:52] Route matched with {action = "GetExamProblemList", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi)
+[16:49:52] Authorization was successful.
+[16:49:52] Executing action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:50:27] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:50:27] Executed DbCommand (25ms) [Parameters=[@__Parse_0='?' (DbType = Guid), @__subType_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID], [x].[SubmitAnswer], [x].[ProblemName], [x].[ProblemFeatures], [x].[QuestionNumber], [x].[IsSubmitOver]
+FROM [UserProblemScore] AS [x]
+WHERE (([x].[UserID] = @__Parse_0) AND ([x].[ProblemType] = 1)) AND ([x].[ProblemSubType] = @__subType_1)
+ORDER BY [x].[QuestionNumber]
+[16:50:27] Executed DbCommand (7ms) [Parameters=[@__subType_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[AddTime], [x].[ModuleType], [x].[Number], [x].[SubType]
+FROM [ExamProcess] AS [x]
+WHERE ([x].[ModuleType] = 1) AND ([x].[SubType] = @__subType_0)
+[16:50:27] Executed action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 34886.5943ms.
+[16:50:27] Executing ObjectResult, writing value of type 'CoreExamApi.Dto.ExamProblemWithTimeDto'.
+[16:50:27] Executed action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) in 35008.079ms
+[16:50:27] Request finished in 81758.4325ms 200 application/json; charset=utf-8
+[16:50:34] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/problems?subType=1  
+[16:52:09] Successfully validated the token.
+[16:52:09] Route matched with {action = "GetExamProblemList", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi)
+[16:52:09] Authorization was successful.
+[16:52:09] Executing action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) with arguments (1) - Validation state: Valid
+[16:52:11] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[16:52:11] Executed DbCommand (9ms) [Parameters=[@__Parse_0='?' (DbType = Guid), @__subType_1='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT [x].[ID], [x].[SubmitAnswer], [x].[ProblemName], [x].[ProblemFeatures], [x].[QuestionNumber], [x].[IsSubmitOver]
+FROM [UserProblemScore] AS [x]
+WHERE (([x].[UserID] = @__Parse_0) AND ([x].[ProblemType] = 1)) AND ([x].[ProblemSubType] = @__subType_1)
+ORDER BY [x].[QuestionNumber]
+[16:52:11] Executed DbCommand (1ms) [Parameters=[@__subType_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [x].[ID], [x].[AddTime], [x].[ModuleType], [x].[Number], [x].[SubType]
+FROM [ExamProcess] AS [x]
+WHERE ([x].[ModuleType] = 1) AND ([x].[SubType] = @__subType_0)
+[16:52:11] Executed action method CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 2029.3858ms.
+[16:52:11] Executing ObjectResult, writing value of type 'CoreExamApi.Dto.ExamProblemWithTimeDto'.
+[16:52:11] Executed action CoreExamApi.Controllers.ExamController.GetExamProblemList (CoreExamApi) in 2030.4958ms
+[16:52:11] Request finished in 96566.8574ms 200 application/json; charset=utf-8

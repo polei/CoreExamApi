@@ -11,6 +11,8 @@ using CoreExamApi.Infrastructure;
 using CoreExamApi.Infrastructure.AutofacModules;
 using CoreExamApi.Infrastructure.Filters;
 using CoreExamApi.Infrastructure.Hubs;
+using CoreExamApi.Infrastructure.Middlewares;
+using CoreExamApi.Infrastructure.Repositorys;
 using CoreExamApi.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -25,6 +27,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -49,11 +52,23 @@ namespace CoreExamApi
             }).AddControllersAsServices().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.Configure<ExamingSettings>(Configuration);
-
+            
             ConfigureAuthService(services);
             
             services.AddDbContext<ExamContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            
+            services.AddSingleton<ConnectionMultiplexer>(sp =>
+            {
+                var settings = sp.GetRequiredService<IOptions<ExamingSettings>>().Value;
+                var configuration = ConfigurationOptions.Parse(settings.RedisConnectionString, true);
+
+                configuration.ResolveDns = true;
+
+                return ConnectionMultiplexer.Connect(configuration);
+            });
+
 
             services.AddSwaggerGen(options =>
             {
@@ -97,7 +112,9 @@ namespace CoreExamApi
             });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IRedisKeyRepository, RedisKeyRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddTransient<TokenAuthMiddleware>();
             services.AddSignalR(hubOptions =>
             {
                 //hubOptions.EnableDetailedErrors = true;
@@ -178,6 +195,10 @@ namespace CoreExamApi
             else
             {
                 app.UseHsts();
+            }
+            if (Configuration.GetValue<bool>("UserTokenOnly"))
+            {
+                app.UseMiddleware<TokenAuthMiddleware>();
             }
             app.UseAuthentication();
             app.UseCors("CorsPolicy");

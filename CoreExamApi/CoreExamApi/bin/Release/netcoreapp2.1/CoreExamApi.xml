@@ -61,7 +61,7 @@
         </member>
         <member name="M:CoreExamApi.Controllers.ExamController.SaveProblemStatusType2(System.Int32,System.Int32)">
             <summary>
-            一比高下提交每一题的状态
+            一比高下和狭路相逢提交每一题的状态
             </summary>
             <param name="problemType">题目类型(2、一比高下 3、狭路相逢)</param>
             <param name="questionNumber">题目编号</param>
@@ -105,10 +105,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:CoreExamApi.Controllers.ExamController.GetChiocePartCountdown">
+        <member name="M:CoreExamApi.Controllers.ExamController.GetChiocePartCountdown(System.Int32)">
             <summary>
             获取狭路相逢倒计时
             </summary>
+            <param name="questionNumber">问题编号</param>
             <returns></returns>
         </member>
         <member name="M:CoreExamApi.Controllers.ExamController.GetProblemInCountdown(CoreExamApi.Models.UserProblemScore)">
@@ -235,6 +236,16 @@
         <member name="P:CoreExamApi.Dto.AccuracyDto.partUserCount">
             <summary>
             提交人数
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ChiocePartCountdownDto.ChiocePart">
+            <summary>
+            用户选择（1是）
+            </summary>
+        </member>
+        <member name="P:CoreExamApi.Dto.ChiocePartCountdownDto.Countdown">
+            <summary>
+            倒计时
             </summary>
         </member>
         <member name="P:CoreExamApi.Dto.ExamProblemDto.ID">
@@ -582,6 +593,11 @@
             大屏幕密码
             </summary>
         </member>
+        <member name="P:CoreExamApi.ExamingSettings.RedisConnectionString">
+            <summary>
+            redis 连接字符串
+            </summary>
+        </member>
         <member name="T:CoreExamApi.Infrastructure.Enum.eChoicePart">
             <summary>
             是否参与狭路相逢
@@ -601,6 +617,37 @@
             <summary>
             每个用户作为一个组？
             </summary>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Repositorys.IRedisKeyRepository.GetTokenAsync(System.String)">
+            <summary>
+            获取token
+            </summary>
+            <param name="uid">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Repositorys.IRedisKeyRepository.SetTokenAsync(System.String,System.String)">
+            <summary>
+            插入用户
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:CoreExamApi.Infrastructure.Repositorys.RedisKeyRepository">
+            <summary>
+            存储用户ID和token
+            </summary>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Repositorys.RedisKeyRepository.GetTokenAsync(System.String)">
+            <summary>
+            获取token
+            </summary>
+            <param name="uid">用户ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:CoreExamApi.Infrastructure.Repositorys.RedisKeyRepository.SetTokenAsync(System.String,System.String)">
+            <summary>
+            插入用户
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:CoreExamApi.Infrastructure.Services.ExamService.GetUserRankingList(System.Nullable{System.Int32})">
             <summary>
