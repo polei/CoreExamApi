@@ -144,3 +144,79 @@
 2018-08-14 18:43:50.3661 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
 2018-08-14 18:43:52.0112 Info Shutting down logging...
 2018-08-14 18:43:52.0512 Info Logger has been shut down.
+2018-08-15 10:28:59.2887 Info Message Template Auto Format enabled
+2018-08-15 10:28:59.4497 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 10:28:59.4497 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 10:28:59.4497 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 10:28:59.4497 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 10:28:59.4497 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 10:28:59.4667 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 10:28:59.4947 Info Found 70 configuration items
+2018-08-15 10:28:59.5267 Info Configuration initialized.
+2018-08-15 10:28:59.5767 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 10:29:01.7668 Info Shutting down logging...
+2018-08-15 10:29:01.8428 Info Logger has been shut down.
+2018-08-15 10:57:53.6639 Info Message Template Auto Format enabled
+2018-08-15 10:57:54.3689 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 10:57:54.3689 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 10:57:54.3689 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 10:57:54.3689 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 10:57:54.3689 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 10:57:54.4139 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 10:57:54.4909 Info Found 70 configuration items
+2018-08-15 10:57:54.5209 Info Configuration initialized.
+2018-08-15 10:57:54.5679 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 11:20:41.0001 Info Message Template Auto Format enabled
+2018-08-15 11:20:41.2471 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 11:20:41.2491 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 11:20:41.2491 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 11:20:41.2491 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 11:20:41.2491 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 11:20:41.2641 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 11:20:41.2881 Info Found 70 configuration items
+2018-08-15 11:20:41.3141 Info Configuration initialized.
+2018-08-15 11:20:41.3971 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 11:20:44.7083 Info Shutting down logging...
+2018-08-15 11:20:44.7323 Info Logger has been shut down.
+2018-08-15 15:03:34.7510 Info Message Template Auto Format enabled
+2018-08-15 15:03:35.1380 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 15:03:35.1380 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 15:03:35.1380 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 15:03:35.1380 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 15:03:35.1510 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 15:03:35.1680 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 15:03:35.2440 Info Found 70 configuration items
+2018-08-15 15:03:35.2980 Info Configuration initialized.
+2018-08-15 15:03:35.3251 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 15:17:19.9882 Info Message Template Auto Format enabled
+2018-08-15 15:17:20.3122 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 15:17:20.3322 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 15:17:20.3322 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 15:17:20.3342 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 15:17:20.3342 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 15:17:20.3502 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 15:17:20.3962 Info Found 70 configuration items
+2018-08-15 15:17:20.4552 Info Configuration initialized.
+2018-08-15 15:17:20.6463 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 15:30:25.2991 Info Message Template Auto Format enabled
+2018-08-15 15:30:25.7622 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 15:30:25.7622 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 15:30:25.7622 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 15:30:25.7692 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 15:30:25.7692 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 15:30:25.7922 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 15:30:25.8202 Info Found 70 configuration items
+2018-08-15 15:30:25.8542 Info Configuration initialized.
+2018-08-15 15:30:25.8782 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 15:32:37.5007 Info Message Template Auto Format enabled
+2018-08-15 15:32:37.5847 Info Adding target AsyncWrapper Target[ErrorTarget](File Target[ErrorTarget_wrapped])
+2018-08-15 15:32:37.5847 Info Adding target AsyncWrapper Target[InfoTarget](File Target[InfoTarget_wrapped])
+2018-08-15 15:32:37.5887 Info Adding target AsyncWrapper Target[WarnTarget](File Target[WarnTarget_wrapped])
+2018-08-15 15:32:37.5887 Info Adding target AsyncWrapper Target[DebugTarget](File Target[DebugTarget_wrapped])
+2018-08-15 15:32:37.5887 Info Adding target AsyncWrapper Target[ConsoleTarget](ColoredConsole Target[ConsoleTarget_wrapped])
+2018-08-15 15:32:37.5887 Info Configured from an XML element in E:\netcore\CoreApi\CoreExamApi\CoreExamApi\bin\Release\netcoreapp2.1\NLog.config...
+2018-08-15 15:32:37.6247 Info Found 70 configuration items
+2018-08-15 15:32:37.6537 Info Configuration initialized.
+2018-08-15 15:32:37.6537 Info NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.5.8.8046. Product version: 4.5.8.
+2018-08-15 15:32:38.1377 Info Shutting down logging...
+2018-08-15 15:32:38.1667 Info Logger has been shut down.

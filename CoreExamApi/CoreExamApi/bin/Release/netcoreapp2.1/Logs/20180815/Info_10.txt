@@ -1,0 +1,58 @@
+[10:57:58] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[10:57:59] Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+[10:57:59] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+[10:57:59] Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [User] AS [u])
+    THEN CAST(1 AS BIT) ELSE CAST(0 AS BIT)
+END
+[10:57:59] User profile is available. Using 'C:\Users\Administrator\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+[10:58:00] Request starting HTTP/1.1 DEBUG http://localhost:52243/  0
+[10:58:00] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/index.html  
+[10:58:01] Request finished in 90.9597ms 200 
+[10:58:08] Sending file. Request path: '/swagger/ui/index.html'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\index.html'
+[10:58:08] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-standalone-preset.js  
+[10:58:08] Request finished in 7568.0519ms 200 text/html
+[10:58:08] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui-bundle.js  
+[10:58:08] Request starting HTTP/1.1 GET http://localhost:52243/swagger/ui/swagger-ui.css  
+[10:58:08] Sending file. Request path: '/swagger/ui/swagger-ui.css'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui.css'
+[10:58:08] Request finished in 35.7028ms 200 text/css
+[10:58:08] Sending file. Request path: '/swagger/ui/swagger-ui-standalone-preset.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-standalone-preset.js'
+[10:58:08] Request finished in 129.7114ms 200 application/javascript
+[10:58:08] Sending file. Request path: '/swagger/ui/swagger-ui-bundle.js'. Physical path: 'E:\netcore\CoreApi\CoreExamApi\CoreExamApi\wwwroot\swagger\ui\swagger-ui-bundle.js'
+[10:58:08] Request finished in 205.325ms 200 application/javascript
+[10:58:09] Request starting HTTP/1.1 GET http://localhost:52243/swagger/v1/swagger.json  
+[10:58:10] Request finished in 549.38ms 200 application/json
+[10:58:23] Request starting HTTP/1.1 POST http://localhost:52243/api/v1/account/login application/json-patch+json 60
+[10:58:23] Policy execution successful.
+[10:58:23] Route matched with {action = "Login", controller = "Account"}. Executing action CoreExamApi.Controllers.AccountController.Login (CoreExamApi)
+[10:58:23] Executing action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi) with arguments (CoreExamApi.ViewModel.LoginViewModel) - Validation state: Valid
+[10:58:23] Entity Framework Core 2.1.1-rtm-30846 initialized 'ExamContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: None
+[10:58:23] Executed DbCommand (73ms) [Parameters=[@__model_userName_0='?' (Size = 200), @__model_password_1='?' (Size = 200)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [x].[ID], [x].[CompanyName], [x].[CreateDate], [x].[IsEngineer], [x].[OrderNumber], [x].[TrueName], [x].[UserName]
+FROM [User] AS [x]
+WHERE ([x].[UserName] = @__model_userName_0) AND ([x].[UserName] = @__model_password_1)
+[10:58:23] Executed action method CoreExamApi.Controllers.AccountController.Login (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 409.1788ms.
+[10:58:23] Executing ObjectResult, writing value of type 'CoreExamApi.ViewModel.mJsonResult'.
+[10:58:23] Executed action CoreExamApi.Controllers.AccountController.Login (CoreExamApi) in 514.1012ms
+[10:58:23] Request finished in 582.0887ms 200 application/json; charset=utf-8
+[10:58:44] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/userRanking  
+[10:58:44] Successfully validated the token.
+[10:58:44] Route matched with {action = "GetUserRanking", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi)
+[10:58:44] Authorization was successful.
+[10:58:44] Executing action method CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi) - Validation state: Valid
+[10:58:44] Executed action method CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 191.999ms.
+[10:58:44] Executing ObjectResult, writing value of type 'CoreExamApi.Dto.SingleUserRankingDto'.
+[10:58:44] Executed action CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi) in 230.962ms
+[10:58:44] Request finished in 284.002ms 200 application/json; charset=utf-8
+[10:58:57] Request starting HTTP/1.1 GET http://localhost:52243/api/v1/exam/userRanking  
+[10:58:57] Successfully validated the token.
+[10:58:57] Route matched with {action = "GetUserRanking", controller = "Exam"}. Executing action CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi)
+[10:58:57] Authorization was successful.
+[10:58:57] Executing action method CoreExamApi.Controllers.ExamController.GetUserRanking (CoreExamApi) - Validation state: Valid

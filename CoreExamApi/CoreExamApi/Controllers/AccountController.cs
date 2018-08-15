@@ -6,11 +6,13 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CoreExamApi.Infrastructure;
+using CoreExamApi.Infrastructure.Hubs;
 using CoreExamApi.Infrastructure.Repositorys;
 using CoreExamApi.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -26,15 +28,19 @@ namespace CoreExamApi.Controllers
         private readonly ExamingSettings _settings;
         private readonly ILogger<AccountController> _logger;
         private readonly IRedisKeyRepository _redisKeyRepository;
+        private readonly IHubContext<NotificationsHub> _hubContext;
+
         public AccountController(ExamContext examContext
             , IOptionsSnapshot<ExamingSettings> settings
             , ILogger<AccountController> logger
-            , IRedisKeyRepository redisKeyRepository)
+            , IRedisKeyRepository redisKeyRepository
+            , IHubContext<NotificationsHub> hubContext)
         {
             _settings = settings.Value;
             _examContext = examContext;
             _logger = logger;
             _redisKeyRepository = redisKeyRepository;
+            _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
         }
 
         /// <summary>
@@ -65,13 +71,15 @@ namespace CoreExamApi.Controllers
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                     var token = new JwtSecurityToken(
                                     claims: claims,
-                                    expires: DateTime.Now.AddMinutes(5),
+                                    expires: DateTime.Now.AddDays(2),
                                     signingCredentials: creds
                                 );
                     json.success = true;
                     json.data = new JwtSecurityTokenHandler().WriteToken(token);
                     //存redis数据库
                     await _redisKeyRepository.SetTokenAsync(user.ID.ToString(), json.data);
+                    //如果有其他用户正在登陆踢掉
+                    await _hubContext.Clients.Groups(user.ID.ToString().ToLower()).SendAsync("ReceiveMessageFromLogin", 401);
 
                 }
                 else

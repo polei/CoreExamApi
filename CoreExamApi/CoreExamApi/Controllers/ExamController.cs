@@ -445,20 +445,34 @@ namespace CoreExamApi.Controllers
             var userRanking = userRankingList.Where(x => x.UserID == Guid.Parse(userId)).Single();
             model.xRanking = userRanking.RankingNum;
             model.xScore = userRanking.Score;
-            var userLessRanking = userRankingList.Where(x => x.Score > model.xScore)
+            if(model.xScore is null)
+            {
+                var userLessRanking = userRankingList.Where(x => x.Score.HasValue)
                 .OrderByDescending(o => o.Score).LastOrDefault();
-            if (userLessRanking != null)
-            {
-                model.xLessRanking = userLessRanking.RankingNum;
-                model.xLessScore = userLessRanking.Score;
+                if (userLessRanking != null)
+                {
+                    model.xLessRanking = userLessRanking.RankingNum;
+                    model.xLessScore = userLessRanking.Score;
+                }
             }
-            var userPlusRanking = userRankingList.Where(x => x.Score < model.xScore)
-                .OrderByDescending(o => o.Score).FirstOrDefault();
-            if (userPlusRanking != null)
+            else
             {
-                model.xPlusRanking = userPlusRanking.RankingNum;
-                model.xPlusScore = userPlusRanking.Score;
+                var userLessRanking = userRankingList.Where(x => x.Score > model.xScore)
+                .OrderByDescending(o => o.Score).LastOrDefault();
+                if (userLessRanking != null)
+                {
+                    model.xLessRanking = userLessRanking.RankingNum;
+                    model.xLessScore = userLessRanking.Score;
+                }
+                var userPlusRanking = userRankingList.Where(x => x.Score < model.xScore)
+                    .OrderByDescending(o => o.Score).FirstOrDefault();
+                if (userPlusRanking != null)
+                {
+                    model.xPlusRanking = userPlusRanking.RankingNum;
+                    model.xPlusScore = userPlusRanking.Score;
+                }
             }
+            
             return Ok(model);
 
         }
